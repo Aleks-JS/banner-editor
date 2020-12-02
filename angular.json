@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "banner-editor"
+    }
+  },
+  "defaultProject": "banner-editor",
+  "cli": {
+    "analytics": false
+  }
 }
