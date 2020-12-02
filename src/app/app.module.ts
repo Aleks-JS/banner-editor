@@ -5,17 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { BodyComponent } from './components/body/body.component';
-import { PreviewComponent } from './components/body/components/preview/preview.component';
-import { ParameterFormsComponent } from './components/body/components/parameter-forms/parameter-forms.component';
-import { ExportBannerComponent } from './components/body/components/export-banner/export-banner.component';
+import { MainComponent } from './components/main/main.component';
+import { PreviewComponent } from './components/main/components/preview/preview.component';
+import { ParameterFormsComponent } from './components/main/components/parameter-forms/parameter-forms.component';
+import { ExportBannerComponent } from './components/main/components/export-banner/export-banner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    BodyComponent,
+    MainComponent,
     PreviewComponent,
     ParameterFormsComponent,
     ExportBannerComponent
