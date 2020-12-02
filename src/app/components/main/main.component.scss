@@ -1,3 +1,14 @@
 .wrapper {
     display: flex;
+    justify-content: space-around;
+}
+
+.preview {
+    width: 100%;
+    flex: 0 1 50%;
+}
+
+.parameters {
+    width: 100%;
+    flex: 0 1 50%;
 }

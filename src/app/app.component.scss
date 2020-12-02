@@ -1,0 +1,19 @@
+.wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+app-header {
+    width: 100%;
+}
+
+app-main {
+    width: 100%;
+}
+
+app-footer {
+    width: 100%;
+}
