@@ -12,8 +12,10 @@ app-header {
 
 app-main {
     width: 100%;
+    flex: 1 0 auto;
 }
 
 app-footer {
+    flex-shrink: 0;
     width: 100%;
 }
