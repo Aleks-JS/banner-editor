@@ -3,6 +3,20 @@
 </div>
 <div class="parametr__content">
   <form [formGroup]="parameterForm">
+    <div class="parameter-size">
+      <label class="size-label" for="horizontal">
+        Размер по горизонтали <span id="horizontal-value"
+          class="size-value">{{ parameterForm.controls['horizontalSize'].value }}</span>px
+      </label>
+      <div class="range"><input id="horizontal" type="range" min="100" max="500" formControlName="horizontalSize"></div>
+    </div>
+    <div class="parameter-size">
+      <label class="size-label" for="vertical">
+        Размер по вертикали <span id="vertical-value"
+          class="size-value">{{ parameterForm.controls['verticalSize'].value }}</span>px
+      </label>
+      <div class="range"><input id="vertical" type="range" min="100" max="500" formControlName="verticalSize"></div>
+    </div>
     <div>
       <label for="image">
         Загрузить изображение:

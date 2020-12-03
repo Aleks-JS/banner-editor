@@ -9,6 +9,8 @@ import { FormBuilder } from '@angular/forms';
 export class ParameterFormsComponent implements OnInit {
 
   parameterForm = this.fb.group({
+    horizontalSize: ['282'],
+    verticalSize: ['376'],
     bgImageLocal: [''],
     bgImageUrl: [''],
     bgColor: [''],
