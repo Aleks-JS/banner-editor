@@ -9,6 +9,7 @@ import { MainComponent } from './components/main/main.component';
 import { PreviewComponent } from './components/main/components/preview/preview.component';
 import { ParameterFormsComponent } from './components/main/components/parameter-forms/parameter-forms.component';
 import { ExportBannerComponent } from './components/main/components/export-banner/export-banner.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { ExportBannerComponent } from './components/main/components/export-banne
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,11 +9,12 @@ import { FormBuilder } from '@angular/forms';
 export class ParameterFormsComponent implements OnInit {
 
   parameterForm = this.fb.group({
-    bgImage: ['загрузить изображение'],
-    bgColor: ['выбрать цвет фона'],
-    bgGradient: ['выбрать градиент фона'],
-    text: ['введите текст'],
-    url: ['введите url']
+    bgImageLocal: [''],
+    bgImageUrl: [''],
+    bgColor: [''],
+    bgGradient: [''],
+    text: [''],
+    url: ['']
   })
 
   constructor(private fb: FormBuilder) { }
