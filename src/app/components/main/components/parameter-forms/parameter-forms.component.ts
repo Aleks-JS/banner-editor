@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-parameter-forms',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParameterFormsComponent implements OnInit {
 
-  constructor() { }
+  parameterForm = this.fb.group({
+    bgImage: ['загрузить изображение'],
+    bgColor: ['выбрать цвет фона'],
+    bgGradient: ['выбрать градиент фона'],
+    text: ['введите текст'],
+    url: ['введите url']
+  })
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
