@@ -8,9 +8,9 @@ describe('ParameterFormsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParameterFormsComponent ]
+      declarations: [ParameterFormsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

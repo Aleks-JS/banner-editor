@@ -6,28 +6,25 @@
     <div class="parameter-size">
       <label class="size-label" for="horizontal">
         Размер по горизонтали <span id="horizontal-value"
-          class="size-value">{{ parameterForm.controls['horizontalSize'].value }}</span>px
+          class="size-value">{{ parameterForm.get('width').value }}</span>px
       </label>
-      <div class="range"><input id="horizontal" type="range" min="100" max="500" formControlName="horizontalSize"
-          (input)="onChangeWidth()"></div>
+      <div class="range"><input id="horizontal" type="range" min="100" max="500" formControlName="width">
+        <input type="number" min="100" max="500" [value]="parameterForm.get('width').value"
+          (input)="parameterForm.get('width').setValue($event.target.value)"></div>
     </div>
     <div class="parameter-size">
       <label class="size-label" for="vertical">
         Размер по вертикали <span id="vertical-value"
-          class="size-value">{{ parameterForm.controls['verticalSize'].value }}</span>px
+          class="size-value">{{ parameterForm.get('height').value }}</span>px
       </label>
-      <div class="range"><input id="vertical" type="range" min="100" max="500" formControlName="verticalSize"
-          (input)="onChangeHeight()"></div>
+      <div class="range"><input id="vertical" type="range" min="100" max="500" formControlName="height"></div>
     </div>
     <div>
       <label for="image">
         Загрузить изображение:
       </label>
-      <ul>
-        <li>с компьютера: <input id="image" type="file" formControlName="bgImageLocal"></li>
-        <li>по ссылке: <input id="image" type="text" formControlName="bgImageUrl"><button
-            class="download-link">Загрузить</button></li>
-      </ul>
+
+      с компьютера: <input id="image" type="file" formControlName="bgImage">
 
     </div>
     <div>
@@ -37,10 +34,23 @@
       <input id="color" type="color" formControlName="bgColor">
     </div>
     <div>
-      <label for="gradient">
-        Выбрать градиент
-      </label>
-      <input id="gradient" type="text" formControlName="bgGradient">
+      <form [formGroup]="parameterForm.controls.bgGradient">
+
+        Градиент
+
+        <label for="from">
+          Начальный цвет
+        </label>
+        <input id="from" type="color" formControlName="from">
+        <label for="to">
+          Конечный цвет
+        </label>
+        <input id="to" type="color" formControlName="to">
+        <label for="direction">
+          Направление
+        </label>
+        <input id="direction" type="text" formControlName="direction">
+      </form>
     </div>
     <div>
       <label for="text">
@@ -52,7 +62,7 @@
       <label for="url">
         Введите url
       </label>
-      <input id="url" type="text" formControlName="url">
+      <input id="link" type="text" formControlName="link">
     </div>
 
   </form>

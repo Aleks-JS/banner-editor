@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ParametersService } from 'src/app/services/parameters.service';
 
 @Component({
@@ -11,32 +12,35 @@ import { ParametersService } from 'src/app/services/parameters.service';
 export class ParameterFormsComponent implements OnInit {
 
   parameterForm = this.fb.group({
-    horizontalSize: ['282'],
-    verticalSize: ['376'],
-    bgImageLocal: [''],
-    bgImageUrl: [''],
-    bgColor: [''],
-    bgGradient: [''],
-    text: [''],
-    url: ['']
+    width: [282],
+    height: [376],
+    bgImage: [null],
+    bgColor: [null],
+    bgGradient: this.fb.group({
+      from: [null],
+      to: [null],
+      direction: [null]
+    }),
+    text: [null],
+    link: [null]
   })
 
-  width$ = new BehaviorSubject(this.parameterForm.controls['horizontalSize'].value)
-  height$ = new BehaviorSubject(this.parameterForm.controls['verticalSize'].value)
+  destroyed$ = new Subject()
 
   constructor(private fb: FormBuilder, private parametersService: ParametersService) { }
 
   ngOnInit(): void {
+    this.parameterForm.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(e => {
+      this.parametersService.setWidth(e.horizontalSize)
+      this.parametersService.setHeight(e.verticalSize)
+      console.log(this.parameterForm)
+    })
   }
 
-  onChangeWidth() {
-    this.width$.next(this.parameterForm.controls['horizontalSize'].value)
-    this.width$.subscribe(e => this.parametersService.setWidth(e))
+  ngOnDestroy(): void {
+    this.destroyed$.next()
+    this.destroyed$.complete()
   }
 
-  onChangeHeight() {
-    this.height$.next(this.parameterForm.controls['verticalSize'].value)
-    this.height$.subscribe(e => this.parametersService.setHeight(e))
-  }
 
 }
