@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { from, Subject } from 'rxjs';
+import { ColorPickerService } from 'ngx-color-picker'
 import { takeUntil } from 'rxjs/operators';
 
 const INIT_WIDTH_PREVIEW: number = 282;
@@ -44,6 +45,7 @@ export class MainComponent implements OnInit {
   imageOptionCover = IMG_OPTION_COVER;
   bgPosOptions: string[][] = backgroundPositions;
   bgSizeOptions: string[][] = backgroundSizes;
+  defaultColor: string = ''
 
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
@@ -75,8 +77,8 @@ export class MainComponent implements OnInit {
       console.log(e);
       this.dynamicStyle.width = e.width + 'px';
       console.log(this.dynamicStyle);
+      console.log(this.defaultColor);
     });
-    console.log(this.parameterForm.get('imgPosition').value);
     //   this.parameterForm.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(e => {
     //     this.parametersService.setWidth(e.horizontalSize)
     //     this.parametersService.setHeight(e.verticalSize)

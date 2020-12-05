@@ -10,7 +10,7 @@
               width:parameterForm.get('width').value+'px', 
               height:parameterForm.get('height').value+'px',
               backgroundImage:'url('+cardImageBase64+')',
-              backgroundColor: parameterForm.get('bgColor').value,
+              backgroundColor: defaultColor,
               backgroundRepeat:'no-repeat',
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
@@ -71,7 +71,8 @@
               <label for="color">
                 Выбрать цвет
               </label>
-              <input id="color" type="color" formControlName="bgColor">
+              <input id="color" [(colorPicker)]="defaultColor" [style.background]="defaultColor" [value]='defaultColor'
+                formControlName="bgColor">
             </div>
             <div>
               <form [formGroup]="parameterForm.controls.bgGradient">
