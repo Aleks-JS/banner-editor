@@ -1,11 +1,101 @@
 <main class="main">
   <div class="main__content container">
     <div class="preview _container">
-      <app-preview></app-preview>
+      <div class="preview">
+        <div class="preview__title">
+          <h3 class="title-preview">Заголовок превью</h3>
+        </div>
+        <div class="preview__body">
+          <div class="preview__body-content" [style]="{
+              width:parameterForm.get('width').value+'px', 
+              height:parameterForm.get('height').value+'px'}">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="parameters _container">
-      <app-parameter-forms></app-parameter-forms>
-      <app-export-banner></app-export-banner>
+      <div class="parameter-forms">
+        <div class="parametr__title">
+          <h3 class="title-parametr">Параметры</h3>
+        </div>
+        <div class="parametr__content">
+          <form [formGroup]="parameterForm">
+            <div class="parameter-size">
+              <label class="size-label" for="horizontal">
+                Ширина макета <span id="horizontal-value"
+                  class="size-value">{{ parameterForm.get('width').value }}</span>px
+              </label>
+              <div class="range">
+                <input type="number" min="100" max="500" formControlName="width"></div>
+            </div>
+            <div class="parameter-size">
+              <label class="size-label" for="vertical">
+                Высота макета <span id="vertical-value"
+                  class="size-value">{{ parameterForm.get('height').value }}</span>px
+              </label>
+              <div class="range"><input id="vertical" type="number" min="100" max="500" formControlName="height"></div>
+            </div>
+            <div>
+              <label for="image">
+                Загрузить изображение:
+              </label>
+
+              с компьютера: <input id="image" type="file" formControlName="bgImage">
+
+            </div>
+            <div>
+              <label for="color">
+                Выбрать цвет
+              </label>
+              <input id="color" type="color" formControlName="bgColor">
+            </div>
+            <div>
+              <form [formGroup]="parameterForm.controls.bgGradient">
+
+                Градиент
+
+                <label for="from">
+                  Начальный цвет
+                </label>
+                <input id="from" type="color" formControlName="from">
+                <label for="to">
+                  Конечный цвет
+                </label>
+                <input id="to" type="color" formControlName="to">
+                <label for="direction">
+                  Направление
+                </label>
+                <input id="direction" type="text" formControlName="direction">
+              </form>
+            </div>
+            <div>
+              <label for="text">
+                Введите текст баннера
+              </label>
+              <input id="text" type="text" formControlName="text">
+            </div>
+            <div>
+              <label for="url">
+                Введите url
+              </label>
+              <input id="link" type="text" formControlName="link">
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+      <div class="export">
+        <div class="export__title">
+          <h3 class="title-export">Экспорт баннера</h3>
+        </div>
+        <div class="export__buttons">
+          <button class="to__png">в PNG</button>
+          <button class="to__html">в HTML</button>
+          <button class="to__json">в JSON</button>
+
+        </div>
+      </div>
     </div>
 
   </div>
