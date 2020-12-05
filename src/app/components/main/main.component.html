@@ -13,7 +13,7 @@
               backgroundColor: parameterForm.get('bgColor').value,
               backgroundRepeat:'no-repeat',
               backgroundPosition: parameterForm.get('imgPosition').value,
-              backgroundSize: parameterForm.get('imgCover').value ? 'cover' : 'auto'
+              backgroundSize: parameterForm.get('imgCover').value
 
             }">
           </div>
@@ -61,7 +61,9 @@
                 <select id="image-center" formControlName="imgPosition">
                   <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">{{position[0]}}</option>
                 </select>
-                <select id="image-size" type="checkbox" formControlName="imgCover"></select>
+                <select id="image-size" formControlName="imgCover">
+                  <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">{{size[0]}}</option>
+                </select>
               </div>
 
             </div>

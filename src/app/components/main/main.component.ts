@@ -22,9 +22,14 @@ const backgroundPositions: string[][] = [
 ];
 
 
-// const backgroundSizes: string[][] = [
-//   ['Разм']
-// ]
+const backgroundSizes: string[][] = [
+  ['Размер изображения', ''],
+  ['Растянуть по вертикали с сохранением пропорций', 'auto 100%'],
+  ['Растянуть по горизонтали с сохранением пропорций', '100% auto'],
+  ['Растянуть по размеру холста', '100% 100%'],
+  ['Растянуть с сохранением пропорций', 'cover'],
+  ['Вместить с сохранением пропорций', 'contain']
+]
 
 @Component({
   selector: 'app-main',
@@ -38,6 +43,7 @@ export class MainComponent implements OnInit {
   imageDefaultOption = IMG_DEFAULT_POSITION;
   imageOptionCover = IMG_OPTION_COVER;
   bgPosOptions: string[][] = backgroundPositions;
+  bgSizeOptions: string[][] = backgroundSizes;
 
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
@@ -45,7 +51,7 @@ export class MainComponent implements OnInit {
     bgImage: [null],
     bgColor: [null],
     imgPosition: [this.bgPosOptions[0][1]],
-    imgCover: [false],
+    imgCover: [this.bgSizeOptions[0][1]],
     bgGradient: this.fb.group({
       from: [null],
       to: [null],
