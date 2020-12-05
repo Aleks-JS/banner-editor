@@ -8,8 +8,12 @@
         <div class="preview__body">
           <div class="preview__body-content" [style]="{
               width:parameterForm.get('width').value+'px', 
-              height:parameterForm.get('height').value+'px'}">
+              height:parameterForm.get('height').value+'px',
+              backgroundImage:'url('+cardImageBase64+')',
+              backgroundColor:'rgb('+parameterForm.get('bgColor').value+')'
+            }">
           </div>
+
         </div>
       </div>
     </div>
@@ -40,7 +44,7 @@
                 Загрузить изображение:
               </label>
 
-              с компьютера: <input id="image" type="file" formControlName="bgImage">
+              с компьютера: <input id="image" type="file" formControlName="bgImage" (change)="previewFile($event)">
 
             </div>
             <div>
