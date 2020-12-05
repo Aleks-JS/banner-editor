@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ParametersService } from 'src/app/services/parameters.service';
 
 const INIT_WIDTH_PREVIEW: number = 282
 const INIT_HEIGHT_PREVIEW: number = 376
@@ -35,7 +34,7 @@ export class MainComponent implements OnInit {
 
   destroyed$ = new Subject()
 
-  constructor(private fb: FormBuilder, private parametersService: ParametersService) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.parameterForm.valueChanges.subscribe(e => {
