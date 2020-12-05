@@ -63,8 +63,8 @@ export class MainComponent implements OnInit {
       // Size Filter Bytes
       const max_size = 20971520;
       const allowed_types = ['image/png', 'image/jpeg'];
-      const max_height = 15200;
-      const max_width = 25600;
+      const max_height = 500;
+      const max_width = 500;
 
       if (fileInput.target.files[0].size > max_size) {
         this.imageError =
@@ -95,9 +95,9 @@ export class MainComponent implements OnInit {
               '*' +
               max_width +
               'px';
+            console.log(this.imageError)
             return false;
           } else {
-            console.log(e.target.result)
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;
@@ -106,8 +106,8 @@ export class MainComponent implements OnInit {
           }
         };
       };
+      reader.readAsDataURL(fileInput.target.files[0])
 
-      reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
 

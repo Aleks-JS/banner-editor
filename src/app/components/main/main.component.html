@@ -10,7 +10,9 @@
               width:parameterForm.get('width').value+'px', 
               height:parameterForm.get('height').value+'px',
               backgroundImage:'url('+cardImageBase64+')',
-              backgroundColor:'rgb('+parameterForm.get('bgColor').value+')'
+              backgroundColor: parameterForm.get('bgColor').value,
+              backgroundRepeat:'no-repeat',
+              backgroundPosition: 'center'
             }">
           </div>
 
