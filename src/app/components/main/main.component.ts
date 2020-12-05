@@ -3,49 +3,74 @@ import { FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-const INIT_WIDTH_PREVIEW: number = 282
-const INIT_HEIGHT_PREVIEW: number = 376
+const INIT_WIDTH_PREVIEW: number = 282;
+const INIT_HEIGHT_PREVIEW: number = 376;
+const IMG_DEFAULT_POSITION: string = 'Расположение изображение';
+const IMG_OPTION_COVER: string =
+  'Растянуть изображение с сохранением пропорций';
+const backgroundPositions: string[][] = [
+  [IMG_DEFAULT_POSITION, 'left top'],
+  ['По центру', 'center center'],
+  ['По центру вверху', 'center top'],
+  ['По центру внизу', 'center bottom'],
+  ['Слева вверху', 'left top'],
+  ['Слева по центру', 'left center'],
+  ['Слева внизу', 'left bottom'],
+  ['Справа вверху', 'right top'],
+  ['Справа по центру', 'right center'],
+  ['Справа внизу', 'right bottom'],
+];
+
+
+// const backgroundSizes: string[][] = [
+//   ['Разм']
+// ]
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
+  imageDefaultOption = IMG_DEFAULT_POSITION;
+  imageOptionCover = IMG_OPTION_COVER;
+  bgPosOptions: string[][] = backgroundPositions;
 
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
     height: [INIT_HEIGHT_PREVIEW],
     bgImage: [null],
     bgColor: [null],
+    imgPosition: [this.bgPosOptions[0][1]],
+    imgCover: [false],
     bgGradient: this.fb.group({
       from: [null],
       to: [null],
-      direction: [null]
+      direction: [null],
     }),
     text: [null],
-    link: [null]
-  })
+    link: [null],
+  });
 
   dynamicStyle = {
     width: `${this.parameterForm.get('width').value}px`,
-    height: `${this.parameterForm.get('height').value}px`
-  }
+    height: `${this.parameterForm.get('height').value}px`,
+  };
 
-  destroyed$ = new Subject()
+  destroyed$ = new Subject();
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.parameterForm.valueChanges.subscribe(e => {
-      console.log(e)
-      this.dynamicStyle.width = e.width + 'px'
-      console.log(this.dynamicStyle)
-    })
+    this.parameterForm.valueChanges.subscribe((e) => {
+      console.log(e);
+      this.dynamicStyle.width = e.width + 'px';
+      console.log(this.dynamicStyle);
+    });
+    console.log(this.parameterForm.get('imgPosition').value);
     //   this.parameterForm.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(e => {
     //     this.parametersService.setWidth(e.horizontalSize)
     //     this.parametersService.setHeight(e.verticalSize)
@@ -67,8 +92,7 @@ export class MainComponent implements OnInit {
       const max_width = 500;
 
       if (fileInput.target.files[0].size > max_size) {
-        this.imageError =
-          'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
 
         return false;
       }
@@ -81,12 +105,11 @@ export class MainComponent implements OnInit {
       reader.onload = (e: any) => {
         const image = new Image();
         image.src = e.target.result;
-        image.onload = rs => {
+        image.onload = (rs) => {
           const img_height = rs.currentTarget['height'];
           const img_width = rs.currentTarget['width'];
 
           console.log(img_height, img_width);
-
 
           if (img_height > max_height && img_width > max_width) {
             this.imageError =
@@ -95,7 +118,7 @@ export class MainComponent implements OnInit {
               '*' +
               max_width +
               'px';
-            console.log(this.imageError)
+            console.log(this.imageError);
             return false;
           } else {
             const imgBase64Path = e.target.result;
@@ -106,12 +129,7 @@ export class MainComponent implements OnInit {
           }
         };
       };
-      reader.readAsDataURL(fileInput.target.files[0])
-
+      reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
-
-
 }
-
-
