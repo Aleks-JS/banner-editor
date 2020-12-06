@@ -9,6 +9,7 @@
           <div class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
+              backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
               backgroundImage: 'url(' + cardImageBase64 + ')',
               backgroundColor: defaultColor,
               background: parameterForm.get('bgGradient').value
@@ -20,10 +21,13 @@
                   defaultGradientColor +
                   ')'
                 : '',
-              backgroundRepeat: 'no-repeat',
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
-            }"></div>
+            }">
+            <pre id="body-content__text" [style]="{
+              width:parameterForm.get('width').value + 'px'
+            }">{{ parameterForm.get('text').value }}</pre>
+          </div>
         </div>
       </div>
     </div>
@@ -95,7 +99,8 @@
             </div>
             <div>
               <label for="text"> Введите текст баннера </label>
-              <input id="text" type="text" formControlName="text" />
+              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="4"
+                formControlName="text"></textarea>
             </div>
             <div>
               <label for="url"> Введите url </label>
@@ -117,3 +122,4 @@
     </div>
   </div>
 </main>
+<!-- <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque eius omnis odio repudiandae, eaque voluptatum possimus eum enim aspernatur quaerat veniam iure. Et, provident. Consequatur autem exercitationem ea libero rerum.</p> -->

@@ -31,6 +31,7 @@
 }
 
 .choice-color__input {
+    padding: 3px;
     max-width: 25px;
     max-height: 25px;
     padding: 3px;
@@ -41,3 +42,17 @@
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
 }
+
+.text-field {
+    overflow: hidden;
+    resize: none;
+    max-width: 280px;
+}
+
+.preview__body-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#body-content__text {}
