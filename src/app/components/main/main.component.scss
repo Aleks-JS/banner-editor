@@ -55,4 +55,15 @@
     justify-content: flex-end;
 }
 
-#body-content__text {}
+#body-content__text {
+    display: box;
+    display: -webkit-box;
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp: 3;
+    -ms-line-clamp: 3;
+    -webkit-line-clamp: 3;
+    word-wrap: break-word;
+}
