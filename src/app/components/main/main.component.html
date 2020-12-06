@@ -24,8 +24,8 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-            <span id="body-content__text" [style]="{
-              width:parameterForm.get('width').value + 'px'
+            <span class="body-content__text  line-clamp" [style]="{
+              width:parameterForm.get('width').value - 4 + 'px'
             }">{{ parameterForm.get('text').value }}</span>
           </div>
         </div>
@@ -99,7 +99,7 @@
             </div>
             <div>
               <label for="text"> Введите текст баннера </label>
-              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="4"
+              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="5"
                 formControlName="text"></textarea>
             </div>
             <div>
