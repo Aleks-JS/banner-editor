@@ -27,16 +27,12 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-                <div [style]="{
+                <pre [style]="{
                   width:parameterForm.get('width').value - 4 + 'px',
                   padding: '3px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  wordWrap: 'break-word',
-                  display: 'box',
-                  boxOrient: 'vertical',
-                  lineClamp: '3'
-                }">{{ parameterForm.get('text').value }}</div>
+                  whiteSpace: 'pre-wrap',
+                  position: 'absolute'
+                }">{{ parameterForm.get('text').value }}</pre>
               </div>
             </a>
           </div>
@@ -111,7 +107,7 @@
             </div>
             <div>
               <label for="text"> Введите текст баннера </label>
-              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="5"
+              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
                 formControlName="text"></textarea>
             </div>
             <div>

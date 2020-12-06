@@ -31,11 +31,6 @@
     -o-border-radius: 5px;
 }
 
-.preview__body-content {
-    // min-width: 350px;
-    // min-height: 350px;
-}
-
 .choice-color__input {
     padding: 3px;
     max-width: 25px;
@@ -50,31 +45,15 @@
 }
 
 .text-field {
-    max-width: 350px;
-    max-height: 250px;
+    width: 350px;
+    resize: none;
 }
 
 .preview__body-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-}
-
-.body-content__text {
-    padding: 3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-}
-
-.line-clamp {
-    display: box;
-    display: -webkit-box;
-    box-orient: vertical;
-    -webkit-box-orient: vertical;
-    line-clamp: 3;
-    -ms-line-clamp: 3;
-    -webkit-line-clamp: 3;
+    flex-wrap: wrap;
 }
 
 .banner-link {

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { from, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
 
 /* string variables */
@@ -78,6 +78,10 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
+  // dynamicStyle$ = this.parameterForm.valueChanges.pipe(
+  //   map((e) => console.log(e))
+  // );
+
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('downloadLink') downloadLink: ElementRef;
@@ -87,6 +91,7 @@ export class MainComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    console.log(this.dynamicStyle$);
     //   this.parameterForm.valueChanges.pipe(
     //     tap(console.log)
     //     // this.dynamicStyle.width = e.width + 'px';
