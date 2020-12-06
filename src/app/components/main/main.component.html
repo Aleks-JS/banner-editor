@@ -6,8 +6,7 @@
           <h3 class="title-preview">Заголовок превью</h3>
         </div>
         <div class="preview__body">
-          <a [href]="'http://' + !parameterForm.get('link').value ? '#' : parameterForm.get('link').value"
-            class="banner-link" target="_blank">
+          <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank">
             <div class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',

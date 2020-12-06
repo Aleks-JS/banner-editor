@@ -64,7 +64,7 @@ export class MainComponent implements OnInit {
     imgCover: [this.bgSizeOptions[0][1]],
     bgGradient: [false],
     text: [null],
-    link: [null],
+    link: [''],
   });
 
   dynamicStyle = {
@@ -81,8 +81,7 @@ export class MainComponent implements OnInit {
       console.log(e);
       this.dynamicStyle.width = e.width + 'px';
       this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
-      console.log(this.dynamicStyle);
-      console.log(this.gradientColorOptionString);
+      console.log(this.parameterForm.get('link').value);
     });
   }
 
