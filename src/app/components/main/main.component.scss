@@ -29,3 +29,15 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.choice-color__input {
+    max-width: 25px;
+    max-height: 25px;
+    padding: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}

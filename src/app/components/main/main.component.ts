@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { from, Subject } from 'rxjs';
-import { ColorPickerService } from 'ngx-color-picker'
-import { takeUntil } from 'rxjs/operators';
 
 const INIT_WIDTH_PREVIEW: number = 282;
 const INIT_HEIGHT_PREVIEW: number = 376;
 const IMG_DEFAULT_POSITION: string = 'Расположение изображение';
+const ANGLE_DEFAULT: string = '180';
 const IMG_OPTION_COVER: string =
   'Растянуть изображение с сохранением пропорций';
 const backgroundPositions: string[][] = [
@@ -22,15 +21,14 @@ const backgroundPositions: string[][] = [
   ['Справа внизу', 'right bottom'],
 ];
 
-
 const backgroundSizes: string[][] = [
   ['Размер изображения', ''],
   ['Растянуть по вертикали с сохранением пропорций', 'auto 100%'],
   ['Растянуть по горизонтали с сохранением пропорций', '100% auto'],
   ['Растянуть по размеру холста', '100% 100%'],
   ['Растянуть с сохранением пропорций', 'cover'],
-  ['Вместить с сохранением пропорций', 'contain']
-]
+  ['Вместить с сохранением пропорций', 'contain'],
+];
 
 @Component({
   selector: 'app-main',
@@ -45,20 +43,21 @@ export class MainComponent implements OnInit {
   imageOptionCover = IMG_OPTION_COVER;
   bgPosOptions: string[][] = backgroundPositions;
   bgSizeOptions: string[][] = backgroundSizes;
-  defaultColor: string = ''
+  defaultColor: string = '';
+  defaultGradientColor: string = '';
+  gradientColorOptionString: string = '';
+  angleGradient: string = ANGLE_DEFAULT;
 
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
     height: [INIT_HEIGHT_PREVIEW],
     bgImage: [null],
-    bgColor: [null],
+    bgColorFrom: [null],
+    bgColorTo: [null],
+    colorDirection: [this.angleGradient],
     imgPosition: [this.bgPosOptions[0][1]],
     imgCover: [this.bgSizeOptions[0][1]],
-    bgGradient: this.fb.group({
-      from: [null],
-      to: [null],
-      direction: [null],
-    }),
+    bgGradient: [false],
     text: [null],
     link: [null],
   });
@@ -76,31 +75,22 @@ export class MainComponent implements OnInit {
     this.parameterForm.valueChanges.subscribe((e) => {
       console.log(e);
       this.dynamicStyle.width = e.width + 'px';
+      this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
       console.log(this.dynamicStyle);
-      console.log(this.defaultColor);
+      console.log(this.gradientColorOptionString);
     });
-    //   this.parameterForm.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(e => {
-    //     this.parametersService.setWidth(e.horizontalSize)
-    //     this.parametersService.setHeight(e.verticalSize)
-    // })
-  }
-
-  ngOnDestroy(): void {
-    // this.destroyed$.next()
-    // this.destroyed$.complete()
   }
 
   previewFile(fileInput: any) {
     this.imageError = null;
     if (fileInput.target.files && fileInput.target.files[0]) {
-      // Size Filter Bytes
       const max_size = 20971520;
       const allowed_types = ['image/png', 'image/jpeg'];
       const max_height = 500;
       const max_width = 500;
 
       if (fileInput.target.files[0].size > max_size) {
-        this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        this.imageError = 'Максимальный размер ' + max_size / 1000 + 'Mb';
 
         return false;
       }
@@ -121,7 +111,7 @@ export class MainComponent implements OnInit {
 
           if (img_height > max_height && img_width > max_width) {
             this.imageError =
-              'Maximum dimentions allowed ' +
+              'Максимальные возможные размеры ' +
               max_height +
               '*' +
               max_width +
@@ -132,8 +122,6 @@ export class MainComponent implements OnInit {
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;
-
-            // this.previewImagePath = imgBase64Path;
           }
         };
       };

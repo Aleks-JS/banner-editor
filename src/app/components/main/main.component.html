@@ -7,17 +7,23 @@
         </div>
         <div class="preview__body">
           <div class="preview__body-content" [style]="{
-              width:parameterForm.get('width').value+'px', 
-              height:parameterForm.get('height').value+'px',
-              backgroundImage:'url('+cardImageBase64+')',
+              width: parameterForm.get('width').value + 'px',
+              height: parameterForm.get('height').value + 'px',
+              backgroundImage: 'url(' + cardImageBase64 + ')',
               backgroundColor: defaultColor,
-              backgroundRepeat:'no-repeat',
+              background: parameterForm.get('bgGradient').value
+                ? 'linear-gradient(' +
+                  parameterForm.get('colorDirection').value +
+                  'deg, ' +
+                  defaultColor +
+                  ', ' +
+                  defaultGradientColor +
+                  ')'
+                : '',
+              backgroundRepeat: 'no-repeat',
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
-
-            }">
-          </div>
-
+            }"></div>
         </div>
       </div>
     </div>
@@ -31,84 +37,72 @@
             <div class="content-parametr__size">
               <div class="content-size__item">
                 <label class="size-label" for="horizontal">
-                  Ширина макета <span id="horizontal-value"
-                    class="size-value">{{ parameterForm.get('width').value }}</span>px
+                  Ширина макета
+                  <span id="horizontal-value" class="size-value">{{
+                    parameterForm.get("width").value
+                  }}</span>px
                 </label>
                 <div class="range">
-                  <input type="number" min="100" max="500" formControlName="width"></div>
+                  <input type="number" min="100" max="500" formControlName="width" />
+                </div>
               </div>
               <div class="content-size__item">
                 <label class="size-label" for="vertical">
-                  Высота макета <span id="vertical-value"
-                    class="size-value">{{ parameterForm.get('height').value }}</span>px
+                  Высота макета
+                  <span id="vertical-value" class="size-value">{{
+                    parameterForm.get("height").value
+                  }}</span>px
                 </label>
-                <div class="range"><input id="vertical" type="number" min="100" max="500" formControlName="height">
+                <div class="range">
+                  <input id="vertical" type="number" min="100" max="500" formControlName="height" />
                 </div>
-                <div class="size-option">
-
-                </div>
+                <div class="size-option"></div>
               </div>
             </div>
             <div class="content-parametr__image">
               <div class="image-selection">
-                <label for="image">
-                  Загрузить изображение:
-                </label>
+                <label for="image"> Загрузить изображение: </label>
 
-                <input id="image" type="file" formControlName="bgImage" (change)="previewFile($event)">
+                <input id="image" type="file" formControlName="bgImage" (change)="previewFile($event)" />
               </div>
               <div class="image-position">
                 <select id="image-center" formControlName="imgPosition">
-                  <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">{{position[0]}}</option>
+                  <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">
+                    {{ position[0] }}
+                  </option>
                 </select>
                 <select id="image-size" formControlName="imgCover">
-                  <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">{{size[0]}}</option>
+                  <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">
+                    {{ size[0] }}
+                  </option>
                 </select>
               </div>
+            </div>
+            <div class="choice-color__option option-color">
+              <label for="colorFrom"> Выбрать цвет </label>
+              <input id="colorFrom" class="choice-color__input" [(colorPicker)]="defaultColor"
+                [style.background]="defaultColor" formControlName="bgColorFrom" />
 
+              <input type="checkbox" id="gradient" formControlName="bgGradient" /><label for="gradient">Градиент</label>
+              <div class="option-color__gradient" *ngIf="parameterForm.get('bgGradient').value">
+                <label for="colorTo"> Второй цвет </label>
+                <input id="colorTo" class="choice-color__input" [(colorPicker)]="defaultGradientColor"
+                  [style.background]="defaultGradientColor" formControlName="bgColorTo" />
+
+                <label for="direction"> Направление </label>
+                <input id="direction" type="text" formControlName="colorDirection" />
+              </div>
             </div>
             <div>
-              <label for="color">
-                Выбрать цвет
-              </label>
-              <input id="color" [(colorPicker)]="defaultColor" [style.background]="defaultColor" [value]='defaultColor'
-                formControlName="bgColor">
+              <label for="text"> Введите текст баннера </label>
+              <input id="text" type="text" formControlName="text" />
             </div>
             <div>
-              <form [formGroup]="parameterForm.controls.bgGradient">
-
-                Градиент
-
-                <label for="from">
-                  Начальный цвет
-                </label>
-                <input id="from" type="color" formControlName="from">
-                <label for="to">
-                  Конечный цвет
-                </label>
-                <input id="to" type="color" formControlName="to">
-                <label for="direction">
-                  Направление
-                </label>
-                <input id="direction" type="text" formControlName="direction">
-              </form>
+              <label for="url"> Введите url </label>
+              <input id="link" type="text" formControlName="link" />
             </div>
-            <div>
-              <label for="text">
-                Введите текст баннера
-              </label>
-              <input id="text" type="text" formControlName="text">
-            </div>
-            <div>
-              <label for="url">
-                Введите url
-              </label>
-              <input id="link" type="text" formControlName="link">
-            </div>
-
           </form>
         </div>
-
       </div>
       <div class="export">
         <div class="export__title">
@@ -118,10 +112,8 @@
           <button class="to__png">в PNG</button>
           <button class="to__html">в HTML</button>
           <button class="to__json">в JSON</button>
-
         </div>
       </div>
     </div>
-
   </div>
 </main>
