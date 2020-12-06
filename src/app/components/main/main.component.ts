@@ -8,7 +8,8 @@ const IMG_DEFAULT_POSITION: string = 'Расположение изображе�
 const ANGLE_DEFAULT: string = '180';
 const IMG_OPTION_COVER: string =
   'Растянуть изображение с сохранением пропорций';
-const TEXTAREA_PLACEHOLDER: string = 'Введите текст для баннера'
+const TEXTAREA_PLACEHOLDER: string = 'Введите текст для баннера';
+const INPUT_LINK_PLACEHOLDER: string = 'Введите ссылку';
 const backgroundPositions: string[][] = [
   [IMG_DEFAULT_POSITION, 'left top'],
   ['По центру', 'center center'],
@@ -37,6 +38,7 @@ const backgroundSizes: string[][] = [
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  /* Variables */
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
@@ -49,6 +51,7 @@ export class MainComponent implements OnInit {
   gradientColorOptionString: string = '';
   angleGradient: string = ANGLE_DEFAULT;
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
+  inputLinkPlaceholder: string = INPUT_LINK_PLACEHOLDER;
 
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
@@ -71,7 +74,7 @@ export class MainComponent implements OnInit {
 
   destroyed$ = new Subject();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.parameterForm.valueChanges.subscribe((e) => {

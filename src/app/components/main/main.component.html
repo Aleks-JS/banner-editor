@@ -6,7 +6,9 @@
           <h3 class="title-preview">Заголовок превью</h3>
         </div>
         <div class="preview__body">
-          <div class="preview__body-content" [style]="{
+          <a [href]="'http://' + !parameterForm.get('link').value ? '#' : parameterForm.get('link').value"
+            class="banner-link" target="_blank">
+            <div class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
               backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
@@ -24,10 +26,11 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-            <span class="body-content__text  line-clamp" [style]="{
+              <span class="body-content__text  line-clamp" [style]="{
               width:parameterForm.get('width').value - 4 + 'px'
             }">{{ parameterForm.get('text').value }}</span>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -103,8 +106,8 @@
                 formControlName="text"></textarea>
             </div>
             <div>
-              <label for="url"> Введите url </label>
-              <input id="link" type="text" formControlName="link" />
+              <label for="url">Ссылка для баннера: http://</label>
+              <input id="link" type="text" [placeholder]="inputLinkPlaceholder" formControlName="link" />
             </div>
           </form>
         </div>
