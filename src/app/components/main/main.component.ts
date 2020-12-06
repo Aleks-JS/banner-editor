@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { from, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import html2canvas from 'html2canvas';
 
+/* string variables */
 const INIT_WIDTH_PREVIEW: number = 282;
 const INIT_HEIGHT_PREVIEW: number = 376;
 const IMG_DEFAULT_POSITION: string = 'Расположение изображение';
@@ -10,6 +13,8 @@ const IMG_OPTION_COVER: string =
   'Растянуть изображение с сохранением пропорций';
 const TEXTAREA_PLACEHOLDER: string = 'Введите текст для баннера';
 const INPUT_LINK_PLACEHOLDER: string = 'Введите ссылку';
+
+/* data arrays */
 const backgroundPositions: string[][] = [
   [IMG_DEFAULT_POSITION, 'left top'],
   ['По центру', 'center center'],
@@ -38,7 +43,7 @@ const backgroundSizes: string[][] = [
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  /* Variables */
+  /* variables */
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
@@ -53,6 +58,7 @@ export class MainComponent implements OnInit {
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
   inputLinkPlaceholder: string = INPUT_LINK_PLACEHOLDER;
 
+  /* form group */
   parameterForm = this.fb.group({
     width: [INIT_WIDTH_PREVIEW],
     height: [INIT_HEIGHT_PREVIEW],
@@ -72,17 +78,21 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
+  @ViewChild('screen') screen: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('downloadLink') downloadLink: ElementRef;
+
   destroyed$ = new Subject();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.parameterForm.valueChanges.subscribe((e) => {
-      console.log(e);
-      this.dynamicStyle.width = e.width + 'px';
-      this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
-      console.log(this.parameterForm.get('link').value);
-    });
+    this.parameterForm.valueChanges.pipe(
+      tap(console.log)
+      // this.dynamicStyle.width = e.width + 'px';
+      // this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
+      // console.log(this.parameterForm.get('link').value);
+    );
   }
 
   previewFile(fileInput: any) {
@@ -131,5 +141,16 @@ export class MainComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
+  }
+
+  /* download to PNG */
+  downloadImage() {
+    html2canvas(this.screen.nativeElement).then((canvas) => {
+      this.canvas.nativeElement.src = canvas.toDataURL();
+      console.log(this.canvas.nativeElement.src);
+      this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+      this.downloadLink.nativeElement.download = `banner-${new Date().toISOString()}.png`;
+      this.downloadLink.nativeElement.click();
+    });
   }
 }

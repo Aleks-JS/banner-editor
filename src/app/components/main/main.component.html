@@ -5,9 +5,11 @@
         <div class="preview__title">
           <h3 class="title-preview">Заголовок превью</h3>
         </div>
-        <div class="preview__body">
-          <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank">
-            <div class="preview__body-content" [style]="{
+        <div class="preview__body body-preview">
+          <div class="body-preview__wrap"
+            [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
+            <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank">
+              <div #screen class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
               backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
@@ -25,11 +27,12 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-              <span class="body-content__text  line-clamp" [style]="{
+                <div class="body-content__text  line-clamp" [style]="{
               width:parameterForm.get('width').value - 4 + 'px'
-            }">{{ parameterForm.get('text').value }}</span>
-            </div>
-          </a>
+            }">{{ parameterForm.get('text').value }}</div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -116,14 +119,15 @@
           <h3 class="title-export">Экспорт баннера</h3>
         </div>
         <div class="export__buttons">
-          <button class="to__png">в PNG</button>
+          <button class="to__png" (click)="downloadImage()">в PNG</button>
           <button class="to__html">в HTML</button>
           <button class="to__json">в JSON</button>
         </div>
       </div>
     </div>
   </div>
+  <div id="download">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>
 </main>
-<!-- <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque eius omnis 
-  odio repudiandae, eaque voluptatum possimus eum enim aspernatur quaerat veniam iure. 
-  Et, provident. Consequatur autem exercitationem ea libero rerum.</p> -->

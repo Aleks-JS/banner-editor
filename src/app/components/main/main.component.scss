@@ -19,15 +19,21 @@
     flex: 0 1 50%;
 }
 
+.body-preview__wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(137, 137, 255, 0.63);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 .preview__body-content {
     // min-width: 350px;
     // min-height: 350px;
-    border: 1px solid rgba(143, 143, 255, 0.555);
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
 }
 
 .choice-color__input {
@@ -74,3 +80,7 @@
 .banner-link {
     text-decoration: none;
 }
+
+// #download {
+//     display: none;
+// }
