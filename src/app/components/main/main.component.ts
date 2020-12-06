@@ -87,12 +87,12 @@ export class MainComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.parameterForm.valueChanges.pipe(
-      tap(console.log)
-      // this.dynamicStyle.width = e.width + 'px';
-      // this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
-      // console.log(this.parameterForm.get('link').value);
-    );
+    //   this.parameterForm.valueChanges.pipe(
+    //     tap(console.log)
+    //     // this.dynamicStyle.width = e.width + 'px';
+    //     // this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
+    //     // console.log(this.parameterForm.get('link').value);
+    //   );
   }
 
   previewFile(fileInput: any) {

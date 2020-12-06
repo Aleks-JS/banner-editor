@@ -27,9 +27,16 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-                <div class="body-content__text  line-clamp" [style]="{
-              width:parameterForm.get('width').value - 4 + 'px'
-            }">{{ parameterForm.get('text').value }}</div>
+                <div [style]="{
+                  width:parameterForm.get('width').value - 4 + 'px',
+                  padding: '3px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  wordWrap: 'break-word',
+                  display: 'box',
+                  boxOrient: 'vertical',
+                  lineClamp: '3'
+                }">{{ parameterForm.get('text').value }}</div>
               </div>
             </a>
           </div>
