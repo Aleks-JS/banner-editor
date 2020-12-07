@@ -50,10 +50,8 @@
 }
 
 .preview__body-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    display: block;
+    position: relative;
 }
 
 .banner-link {

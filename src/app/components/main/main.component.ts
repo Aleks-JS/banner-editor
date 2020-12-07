@@ -91,7 +91,7 @@ export class MainComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    console.log(this.dynamicStyle$);
+    // console.log(this.dynamicStyle$);
     //   this.parameterForm.valueChanges.pipe(
     //     tap(console.log)
     //     // this.dynamicStyle.width = e.width + 'px';

@@ -28,10 +28,12 @@
               backgroundSize: parameterForm.get('imgCover').value
             }">
                 <pre [style]="{
-                  width:parameterForm.get('width').value - 4 + 'px',
+                  display: 'block',
+                  width:parameterForm.get('width').value + 'px',
                   padding: '3px',
                   whiteSpace: 'pre-wrap',
-                  position: 'absolute'
+                  position: 'absolute',
+                  wordWrap: 'break-word'
                 }">{{ parameterForm.get('text').value }}</pre>
               </div>
             </a>
