@@ -6,7 +6,7 @@
           <h3 class="title-preview">Заголовок превью</h3>
         </div>
         <div class="preview__body body-preview">
-          <div class="body-preview__wrap"
+          <div class="body-preview__wrap" #content
             [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
             <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank">
               <div #screen class="preview__body-content" [style]="{
@@ -123,9 +123,10 @@
         <div class="export__title">
           <h3 class="title-export">Экспорт баннера</h3>
         </div>
-        <div class="export__buttons">
+        <div class="export__buttons" #container>
           <button class="to__png" (click)="downloadImage()">в PNG</button>
-          <button class="to__html">в HTML</button>
+          <button class="to__html" (click)="copyContent()">в
+            HTML</button>
           <button class="to__json">в JSON</button>
         </div>
       </div>

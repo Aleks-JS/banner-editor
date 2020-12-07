@@ -6,20 +6,19 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainComponent
-  ],
+  declarations: [AppComponent, MainComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ClipboardModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { from, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
+import { ClipboardService } from 'ngx-clipboard';
 
 /* string variables */
 const INIT_WIDTH_PREVIEW: number = 282;
@@ -78,6 +79,8 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
+  screenCopy;
+
   // dynamicStyle$ = this.parameterForm.valueChanges.pipe(
   //   map((e) => console.log(e))
   // );
@@ -85,20 +88,16 @@ export class MainComponent implements OnInit {
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('downloadLink') downloadLink: ElementRef;
+  @ViewChild('content') content: ElementRef;
 
   destroyed$ = new Subject();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private clipboardService: ClipboardService
+  ) {}
 
-  ngOnInit(): void {
-    // console.log(this.dynamicStyle$);
-    //   this.parameterForm.valueChanges.pipe(
-    //     tap(console.log)
-    //     // this.dynamicStyle.width = e.width + 'px';
-    //     // this.gradientColorOptionString = `linear-gradient(${this.defaultColor}, ${this.defaultGradientColor})`;
-    //     // console.log(this.parameterForm.get('link').value);
-    //   );
-  }
+  ngOnInit(): void {}
 
   previewFile(fileInput: any) {
     this.imageError = null;
@@ -157,5 +156,12 @@ export class MainComponent implements OnInit {
       this.downloadLink.nativeElement.download = `banner-${new Date().toISOString()}.png`;
       this.downloadLink.nativeElement.click();
     });
+  }
+
+  /* clipboard to HTML */
+  copyContent() {
+    this.screenCopy = this.content.nativeElement.childNodes[0].outerHTML;
+    this.clipboardService.copyFromContent(this.screenCopy);
+    console.log(this.screenCopy);
   }
 }
