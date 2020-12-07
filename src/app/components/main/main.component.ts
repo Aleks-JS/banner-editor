@@ -97,7 +97,9 @@ export class MainComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(JSON.stringify(this.parameterForm.value));
+  }
 
   previewFile(fileInput: any) {
     this.imageError = null;
@@ -162,6 +164,10 @@ export class MainComponent implements OnInit {
   copyContent() {
     this.screenCopy = this.content.nativeElement.childNodes[0].outerHTML;
     this.clipboardService.copyFromContent(this.screenCopy);
-    console.log(this.screenCopy);
+  }
+
+  copyConfig() {
+    const configCopy = JSON.stringify(this.parameterForm.value);
+    this.clipboardService.copyFromContent(configCopy);
   }
 }
