@@ -38,6 +38,53 @@ const backgroundSizes: string[][] = [
   ['Вместить с сохранением пропорций', 'contain'],
 ];
 
+const textConfigurationList = [
+  {
+    default: 'Положение текста',
+    control: 'textAlign',
+    selectValue: ['По левой стороне', 'По центру', 'По правой стороне'],
+    styleValue: ['left', 'center', 'right'],
+  },
+  {
+    default: 'Шрифт',
+    control: 'fontFamily',
+    selectValue: ['Roboto', 'Arial', 'Times New Roman'],
+    styleValue: ['Roboto', 'Arial', 'Times New Roman'],
+  },
+  {
+    default: 'Размер шрифта',
+    control: 'fontSize',
+    selectValue: [
+      'По умолчанию',
+      'small',
+      'smaller',
+      'medium',
+      'large',
+      'larger',
+      'x-large',
+      'xx-large',
+      'xxx-large',
+    ],
+    styleValue: [
+      'initial',
+      'small',
+      'smaller',
+      'medium',
+      'large',
+      'larger',
+      'x-large',
+      'xx-large',
+      'xxx-large',
+    ],
+  },
+  {
+    default: 'Полнота шрифта',
+    control: 'fontWeight',
+    selectValue: ['Нормальный', 'Жирный'],
+    styleValue: ['normal', 'bold'],
+  },
+];
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -58,6 +105,7 @@ export class MainComponent implements OnInit {
   angleGradient: string = ANGLE_DEFAULT;
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
   inputLinkPlaceholder: string = INPUT_LINK_PLACEHOLDER;
+  textConfigList = textConfigurationList;
 
   /* form group */
   parameterForm = this.fb.group({
@@ -72,6 +120,11 @@ export class MainComponent implements OnInit {
     bgGradient: [false],
     text: [null],
     link: [''],
+    textAlign: [this.textConfigList[0].styleValue[0]],
+    fontFamily: [this.textConfigList[1].styleValue[0]],
+    fontSize: [this.textConfigList[2].styleValue[0]],
+    fontWeight: [this.textConfigList[3].styleValue[0]],
+    widthText: [INIT_WIDTH_PREVIEW],
   });
 
   dynamicStyle = {
@@ -98,7 +151,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.parameterForm.value));
+    console.log(this.parameterForm.value);
   }
 
   previewFile(fileInput: any) {

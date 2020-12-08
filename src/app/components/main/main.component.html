@@ -29,11 +29,15 @@
             }">
                 <pre [style]="{
                   display: 'block',
-                  width:parameterForm.get('width').value + 'px',
+                  width:parameterForm.get('widthText').value + 'px',
                   padding: '3px',
                   whiteSpace: 'pre-wrap',
                   position: 'absolute',
-                  wordWrap: 'break-word'
+                  wordWrap: 'break-word',
+                  textAlign: parameterForm.get('textAlign').value,
+                  fontFamily: parameterForm.get('fontFamily').value,
+                  fontSize: parameterForm.get('fontSize').value,
+                  fontWeight: parameterForm.get('fontWeight').value
                 }">{{ parameterForm.get('text').value }}</pre>
               </div>
             </a>
@@ -46,9 +50,9 @@
         <div class="parameter__title">
           <h3 class="title-parameter">Параметры</h3>
         </div>
-        <div class="parameter__content content-parametr">
+        <div class="parameter__content content-parameter">
           <form [formGroup]="parameterForm">
-            <div class="content-parametr__size">
+            <div class="content-parameter__size">
               <div class="content-size__item">
                 <label class="size-label" for="horizontal">
                   Ширина макета
@@ -73,7 +77,7 @@
                 <div class="size-option"></div>
               </div>
             </div>
-            <div class="content-parametr__image">
+            <div class="content-parameter__image">
               <div class="image-selection">
                 <label for="image"> Загрузить изображение: </label>
 
@@ -107,10 +111,23 @@
                 <input id="direction" type="text" formControlName="colorDirection" />
               </div>
             </div>
-            <div>
-              <label for="text"> Введите текст баннера </label>
-              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
-                formControlName="text"></textarea>
+            <div content-parameter__text text-option>
+              <div class="text-option__input">
+                <label for="text"> Введите текст баннера </label>
+                <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
+                  formControlName="text"></textarea>
+              </div>
+              <div class="text-option__setting">
+                <select *ngFor="let item of textConfigList" formControlName={{item.control}}>
+                  <option *ngFor="let value of item.selectValue; let i = index" [ngValue]="item.styleValue[i]">{{value}}
+                  </option>
+
+                </select>
+                <label for="text-field-width">Ширина текста</label>
+                <input type="range" formControlName="widthText" id="text-field-width" min="50"
+                  [max]="parameterForm.get('width').value">
+
+              </div>
             </div>
             <div>
               <label for="url">Ссылка для баннера: http://</label>
