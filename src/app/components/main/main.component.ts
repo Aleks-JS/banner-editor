@@ -101,6 +101,7 @@ export class MainComponent implements OnInit {
   bgSizeOptions: string[][] = backgroundSizes;
   defaultColor: string = '';
   defaultGradientColor: string = '';
+  defaultTextColor: string = '';
   gradientColorOptionString: string = '';
   angleGradient: string = ANGLE_DEFAULT;
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
@@ -125,6 +126,7 @@ export class MainComponent implements OnInit {
     fontSize: [this.textConfigList[2].styleValue[0]],
     fontWeight: [this.textConfigList[3].styleValue[0]],
     widthText: [INIT_WIDTH_PREVIEW],
+    textColor: this.defaultTextColor,
   });
 
   dynamicStyle = {
@@ -151,6 +153,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.parameterForm.valueChanges.subscribe((e) => console.log(e));
     console.log(this.parameterForm.value);
   }
 

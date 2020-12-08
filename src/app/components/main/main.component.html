@@ -37,7 +37,8 @@
                   textAlign: parameterForm.get('textAlign').value,
                   fontFamily: parameterForm.get('fontFamily').value,
                   fontSize: parameterForm.get('fontSize').value,
-                  fontWeight: parameterForm.get('fontWeight').value
+                  fontWeight: parameterForm.get('fontWeight').value,
+                  color: defaultTextColor
                 }">{{ parameterForm.get('text').value }}</pre>
               </div>
             </a>
@@ -98,13 +99,13 @@
             </div>
             <div class="choice-color__option option-color">
               <label for="colorFrom"> Выбрать цвет </label>
-              <input id="colorFrom" class="choice-color__input" [(colorPicker)]="defaultColor"
+              <input id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
                 [style.background]="defaultColor" formControlName="bgColorFrom" />
 
               <input type="checkbox" id="gradient" formControlName="bgGradient" /><label for="gradient">Градиент</label>
               <div class="option-color__gradient" *ngIf="parameterForm.get('bgGradient').value">
                 <label for="colorTo"> Второй цвет </label>
-                <input id="colorTo" class="choice-color__input" [(colorPicker)]="defaultGradientColor"
+                <input id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
                   [style.background]="defaultGradientColor" formControlName="bgColorTo" />
 
                 <label for="direction"> Направление </label>
@@ -126,6 +127,9 @@
                 <label for="text-field-width">Ширина текста</label>
                 <input type="range" formControlName="widthText" id="text-field-width" min="50"
                   [max]="parameterForm.get('width').value">
+                <label for="color-text"> Цвет текста </label>
+                <input id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
+                  [style.background]="defaultTextColor" formControlName="textColor" />
 
               </div>
             </div>
