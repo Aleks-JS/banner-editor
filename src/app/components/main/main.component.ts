@@ -14,6 +14,8 @@ const IMG_OPTION_COVER: string =
   'Растянуть изображение с сохранением пропорций';
 const TEXTAREA_PLACEHOLDER: string = 'Введите текст для баннера';
 const INPUT_LINK_PLACEHOLDER: string = 'Введите ссылку';
+const LINE_HEIGHT_DEFAULT: number = 1.15;
+const MAX_NUM_LINE_OF_TEXT: number = 3;
 
 /* data arrays */
 const backgroundPositions: string[][] = [
@@ -54,28 +56,8 @@ const textConfigurationList = [
   {
     default: 'Размер шрифта',
     control: 'fontSize',
-    selectValue: [
-      'По умолчанию',
-      'small',
-      'smaller',
-      'medium',
-      'large',
-      'larger',
-      'x-large',
-      'xx-large',
-      'xxx-large',
-    ],
-    styleValue: [
-      'initial',
-      'small',
-      'smaller',
-      'medium',
-      'large',
-      'larger',
-      'x-large',
-      'xx-large',
-      'xxx-large',
-    ],
+    selectValue: ['По умолчанию', '14', '18', '22', '26', '32', '38'],
+    styleValue: ['16', '14', '18', '22', '26', '32', '38'],
   },
   {
     default: 'Полнота шрифта',
@@ -106,6 +88,9 @@ export class MainComponent implements OnInit {
   angleGradient: string = ANGLE_DEFAULT;
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
   inputLinkPlaceholder: string = INPUT_LINK_PLACEHOLDER;
+  lineHeightDefault: number = LINE_HEIGHT_DEFAULT;
+  maxLinesOfText: number = MAX_NUM_LINE_OF_TEXT;
+
   textConfigList = textConfigurationList;
 
   /* form group */

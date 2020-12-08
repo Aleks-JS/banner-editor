@@ -29,14 +29,16 @@
             }">
                 <pre [style]="{
                   display: 'block',
-                  width:parameterForm.get('widthText').value + 'px',
-                  padding: '3px',
-                  whiteSpace: 'pre-wrap',
                   position: 'absolute',
+                  padding: '3px',
+                  width: parameterForm.get('widthText').value + 'px',
+                  maxHeight: parameterForm.get('fontSize').value * lineHeightDefault * maxLinesOfText + 'px',
+                  whiteSpace: 'pre-wrap',
                   wordWrap: 'break-word',
+                  overflow: 'hidden',
                   textAlign: parameterForm.get('textAlign').value,
                   fontFamily: parameterForm.get('fontFamily').value,
-                  fontSize: parameterForm.get('fontSize').value,
+                  fontSize: parameterForm.get('fontSize').value + 'px',
                   fontWeight: parameterForm.get('fontWeight').value,
                   color: defaultTextColor
                 }">{{ parameterForm.get('text').value }}</pre>
@@ -109,7 +111,7 @@
                   [style.background]="defaultGradientColor" formControlName="bgColorTo" />
 
                 <label for="direction"> Направление </label>
-                <input id="direction" type="text" formControlName="colorDirection" />
+                <input id="direction" type="range" formControlName="colorDirection" min="0" max="360" />
               </div>
             </div>
             <div content-parameter__text text-option>
