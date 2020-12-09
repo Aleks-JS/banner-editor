@@ -8,8 +8,8 @@
         <div class="preview__body body-preview">
           <div class="body-preview__wrap" #content
             [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
-            <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank">
-              <div #screen class="preview__body-content" [style]="{
+            <!-- <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank"> -->
+            <div #screen class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
               backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
@@ -27,10 +27,9 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-                <pre [style]="{
+              <pre [style]="{
                   display: 'block',
                   position: 'absolute',
-                  padding: '3px',
                   width: parameterForm.get('widthText').value + 'px',
                   maxHeight: parameterForm.get('fontSize').value * lineHeightDefault * maxLinesOfText + 'px',
                   whiteSpace: 'pre-wrap',
@@ -41,9 +40,9 @@
                   fontSize: parameterForm.get('fontSize').value + 'px',
                   fontWeight: parameterForm.get('fontWeight').value,
                   color: defaultTextColor
-                }">{{ parameterForm.get('text').value }}</pre>
-              </div>
-            </a>
+                }" cdkDragBoundary=".preview__body-content" cdkDrag>{{ parameterForm.get('text').value }}</pre>
+            </div>
+            <!-- </a> -->
           </div>
         </div>
       </div>

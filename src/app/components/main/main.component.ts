@@ -207,6 +207,7 @@ export class MainComponent implements OnInit {
     this.clipboardService.copyFromContent(this.screenCopy);
   }
 
+  /* clipboard config to JSON */
   copyConfig() {
     const configCopy = JSON.stringify(this.parameterForm.value);
     this.clipboardService.copyFromContent(configCopy);

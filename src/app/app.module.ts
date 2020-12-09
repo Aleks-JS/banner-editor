@@ -7,6 +7,7 @@ import { MainComponent } from './components/main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ClipboardModule } from 'ngx-clipboard';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [AppComponent, MainComponent],
@@ -17,6 +18,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     ReactiveFormsModule,
     ColorPickerModule,
     ClipboardModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
