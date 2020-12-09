@@ -131,10 +131,7 @@ export class MainComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {
-    this.parameterForm.valueChanges.subscribe((e) => console.log(e));
-    console.log(this.parameterForm.value);
-  }
+  ngOnInit(): void {}
 
   previewFile(fileInput: any) {
     this.imageError = null;
