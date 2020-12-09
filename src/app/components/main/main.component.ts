@@ -203,7 +203,11 @@ export class MainComponent implements OnInit {
 
   /* clipboard to HTML */
   copyContent() {
-    this.screenCopy = this.content.nativeElement.childNodes[0].outerHTML;
+    const link = document.createElement('a');
+    link.href = this.parameterForm.get('link').value;
+    link.target = '_blank';
+    link.append(this.content.nativeElement.childNodes[0]);
+    this.screenCopy = link.outerHTML;
     this.clipboardService.copyFromContent(this.screenCopy);
   }
 
