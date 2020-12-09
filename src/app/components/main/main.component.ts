@@ -90,8 +90,8 @@ export class MainComponent implements OnInit {
   inputLinkPlaceholder: string = INPUT_LINK_PLACEHOLDER;
   lineHeightDefault: number = LINE_HEIGHT_DEFAULT;
   maxLinesOfText: number = MAX_NUM_LINE_OF_TEXT;
-
   textConfigList = textConfigurationList;
+  screenCopy;
 
   /* form group */
   parameterForm = this.fb.group({
@@ -118,12 +118,6 @@ export class MainComponent implements OnInit {
     width: `${this.parameterForm.get('width').value}px`,
     height: `${this.parameterForm.get('height').value}px`,
   };
-
-  screenCopy;
-
-  // dynamicStyle$ = this.parameterForm.valueChanges.pipe(
-  //   map((e) => console.log(e))
-  // );
 
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -203,12 +197,8 @@ export class MainComponent implements OnInit {
 
   /* clipboard to HTML */
   copyContent() {
-    const link = document.createElement('a');
-    link.href = this.parameterForm.get('link').value;
-    link.target = '_blank';
-    link.append(this.content.nativeElement.childNodes[0]);
-    this.screenCopy = link.outerHTML;
-    this.clipboardService.copyFromContent(this.screenCopy);
+    const exportHtml = this.content.nativeElement.childNodes[0].outerHTML;
+    this.clipboardService.copyFromContent(exportHtml);
   }
 
   /* clipboard config to JSON */
