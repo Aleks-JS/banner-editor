@@ -6,14 +6,15 @@
     box-sizing: border-box;
 }
 
-@import '~normalize.css/normalize.css';
-@import '~roboto-fontface/css/roboto/roboto-fontface.css';
-
 
 html,
 body {
     height: 100%;
-    font-family: roboto;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 ul {
