@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { from, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
 import { ClipboardService } from 'ngx-clipboard';
 
@@ -104,8 +104,8 @@ export class MainComponent implements OnInit {
     imgPosition: [this.bgPosOptions[0][1]],
     imgCover: [this.bgSizeOptions[0][1]],
     bgGradient: [false],
-    text: [null],
-    link: [''],
+    text: [null, Validators.required],
+    link: ['', Validators.required],
     textAlign: [this.textConfigList[0].styleValue[0]],
     fontFamily: [this.textConfigList[1].styleValue[0]],
     fontSize: [this.textConfigList[2].styleValue[0]],
@@ -119,6 +119,13 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
+  // formsData$ = this.parameterForm.valueChanges.pipe(
+  //   map((v) => {
+  //     return v.width;
+  //   }),
+  //   tap(console.log)
+  // );
+
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('downloadLink') downloadLink: ElementRef;
@@ -131,7 +138,9 @@ export class MainComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.dynamicStyle);
+  }
 
   previewFile(fileInput: any) {
     this.imageError = null;

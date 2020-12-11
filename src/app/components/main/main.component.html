@@ -119,6 +119,9 @@
                 <label for="text"> Введите текст баннера </label>
                 <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
                   formControlName="text"></textarea>
+                <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
+                  Заполните поле с текстом
+                </div>
               </div>
               <div class="text-option__setting">
                 <select *ngFor="let item of textConfigList" formControlName={{item.control}}>
@@ -138,6 +141,9 @@
             <div>
               <label for="url">Ссылка для баннера: http://</label>
               <input id="link" type="text" [placeholder]="inputLinkPlaceholder" formControlName="link" />
+              <div *ngIf="parameterForm.hasError('required','link') && parameterForm.controls['link'].touched">
+                Заполните url
+              </div>
             </div>
           </form>
         </div>
@@ -147,11 +153,14 @@
           <h3 class="title-export">Экспорт баннера</h3>
         </div>
         <div class="export__buttons" #container>
-          <button class="to__png" (click)="downloadImage()">в PNG</button>
-          <button class="to__html" (click)="copyContent()">в
+          <button class="to__png" (click)="downloadImage()" [disabled]="parameterForm.invalid">в PNG</button>
+          <button class="to__html" (click)="copyContent()" [disabled]="parameterForm.invalid">в
             HTML</button>
-          <button class="to__json" (click)="copyConfig()">в JSON</button>
+          <button class="to__json" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON</button>
         </div>
+        <p>
+          Form Status: {{ parameterForm.status }}
+        </p>
       </div>
     </div>
   </div>
