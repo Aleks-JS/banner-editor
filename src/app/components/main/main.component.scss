@@ -30,12 +30,17 @@ button {
 }
 
 ._container {
-    padding: 0 15px;
+    padding: 15px;
 }
 
 .parameters {
     flex: 0 1 50%;
 }
+
+.parameter-forms {
+    padding: 0 5px;
+}
+
 
 .body-preview__wrap {
     display: flex;
@@ -48,6 +53,46 @@ button {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+.content-parameter {
+    width: 100%;
+}
+
+.content-parameter form {
+    width: 100%;
+}
+
+.content-parameter__size {
+    border: 1px solid blue;
+    display: flex;
+    padding: 5px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.content-size__items {
+    display: flex;
+    width: 100%;
+}
+
+.content-size__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.size-input input {
+    max-width: 70px;
+    padding: 3px;
+}
+
+.content-parameter__image {
+    display: flex;
+}
+
+// .image-position {
+    //     width: 100%;
+    // }
 
 .choice-color {
     padding: 3px;
