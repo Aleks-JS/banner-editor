@@ -89,11 +89,23 @@
           </div>
 
           <div class="image-position">
-            <select id="image-center" formControlName="imgPosition">
-              <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">
-                {{ position[0] }}
-              </option>
-            </select>
+            <mat-form-field appearance="fill">
+              <mat-label>Расположение</mat-label>
+              <mat-select disableRipple formControlName="imgPosition">
+                <mat-option *ngFor="let position of bgPosOptions" [value]="position[1]">
+                  {{ position[0] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Размер</mat-label>
+              <mat-select formControlName="imgCover">
+                <mat-option>Исходный</mat-option>
+                <mat-option *ngFor="let size of bgSizeOptions" [value]="size[1]">
+                  {{ size[0] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             <select id="image-size" formControlName="imgCover">
               <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">
                 {{ size[0] }}

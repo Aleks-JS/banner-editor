@@ -8,7 +8,6 @@ import { ClipboardService } from 'ngx-clipboard';
 /* string variables */
 const INIT_WIDTH_PREVIEW: number = 282;
 const INIT_HEIGHT_PREVIEW: number = 376;
-const IMG_DEFAULT_POSITION: string = 'Расположение изображение';
 const ANGLE_DEFAULT: string = '180';
 const IMG_OPTION_COVER: string =
   'Растянуть изображение с сохранением пропорций';
@@ -19,7 +18,6 @@ const MAX_NUM_LINE_OF_TEXT: number = 3;
 
 /* data arrays */
 const backgroundPositions: string[][] = [
-  [IMG_DEFAULT_POSITION, 'left top'],
   ['По центру', 'center center'],
   ['По центру вверху', 'center top'],
   ['По центру внизу', 'center bottom'],
@@ -32,7 +30,6 @@ const backgroundPositions: string[][] = [
 ];
 
 const backgroundSizes: string[][] = [
-  ['Размер изображения', ''],
   ['Растянуть по вертикали с сохранением пропорций', 'auto 100%'],
   ['Растянуть по горизонтали с сохранением пропорций', '100% auto'],
   ['Растянуть по размеру холста', '100% 100%'],
@@ -77,7 +74,7 @@ export class MainComponent implements OnInit {
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
-  imageDefaultOption = IMG_DEFAULT_POSITION;
+  imageDefaultOption = null;
   imageOptionCover = IMG_OPTION_COVER;
   bgPosOptions: string[][] = backgroundPositions;
   bgSizeOptions: string[][] = backgroundSizes;
