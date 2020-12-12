@@ -154,12 +154,16 @@
               <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
                 [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
               </mat-slider>
-              <!-- <label for="text-field-width">Ширина текста</label>
-              <input type="range" formControlName="widthText" id="text-field-width" min="50"
-                [max]="parameterForm.get('width').value"> -->
-              <label for="color-text"> Цвет текста </label>
+
+              <mat-form-field appearance="fill">
+                <label for="color-text"> Цвет текста </label>
+                <input matInput id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
+                  [style.background]="defaultTextColor" formControlName="textColor" />
+              </mat-form-field>
+
+              <!-- <label for="color-text"> Цвет текста </label>
               <input id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
-                [style.background]="defaultTextColor" formControlName="textColor" />
+                [style.background]="defaultTextColor" formControlName="textColor" /> -->
 
             </div>
           </div>

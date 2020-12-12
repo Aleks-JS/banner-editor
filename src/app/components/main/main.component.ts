@@ -78,9 +78,9 @@ export class MainComponent implements OnInit {
   imageOptionCover = IMG_OPTION_COVER;
   bgPosOptions: string[][] = backgroundPositions;
   bgSizeOptions: string[][] = backgroundSizes;
-  defaultColor: string = '';
-  defaultGradientColor: string = '';
-  defaultTextColor: string = '';
+  defaultColor: string = '#ffffff';
+  defaultGradientColor: string = '#ffffff';
+  defaultTextColor: string = '#353535';
   gradientColorOptionString: string = '';
   angleGradient: string = ANGLE_DEFAULT;
   textAreaPlaceholder: string = TEXTAREA_PLACEHOLDER;
