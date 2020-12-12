@@ -113,25 +113,36 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <div class="choice-color__option option-color">
+          <!-- Параметры фонового цвета -->
+          <mat-grid-tile colspan="4" rowspan="1">Параметры фонового цвета</mat-grid-tile>
+
+          <mat-grid-tile colspan="2" rowspan="1">
             <mat-form-field appearance="fill">
               <label for="colorFrom"> Выберите цвет фона </label>
               <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
                 [style.background]="defaultColor" formControlName="bgColorFrom" />
             </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
             <mat-checkbox id="gradient" formControlName="bgGradient">Градиент</mat-checkbox>
-            <div class="option-color__gradient" *ngIf="parameterForm.get('bgGradient').value">
-              <mat-form-field appearance="fill">
-                <label for="colorTo"> Второй цвет в градиенте</label>
-                <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
-                  [style.background]="defaultGradientColor" formControlName="bgColorTo" />
-              </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" class="option-color__gradient"
+            *ngIf="parameterForm.get('bgGradient').value">
+            <mat-form-field appearance="fill">
+              <label for="colorTo"> Второй цвет в градиенте</label>
+              <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
+                [style.background]="defaultGradientColor" formControlName="bgColorTo" />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="2" class="option-color__gradient"
+            *ngIf="parameterForm.get('bgGradient').value">
+            <label for="direction"> Направление </label>
+            <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
+              vertical="true" min="0" max="360"></mat-slider>
+          </mat-grid-tile>
 
-              <label for="direction"> Направление </label>
-              <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
-                vertical="true" min="0" max="360"></mat-slider>
-            </div>
-          </div>
+          <mat-grid-tile colspan="4" rowspan="1">Ввод текста и настройки позиционирования</mat-grid-tile>
+
           <div content-parameter__text text-option>
             <div class="text-option__input">
               <mat-form-field appearance="fill">
