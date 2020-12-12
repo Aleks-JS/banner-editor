@@ -56,7 +56,7 @@
         <div class="parameter__title">
           <h3 class="title-parameter">Параметры</h3>
         </div>
-        <mat-grid-list cols="4" rowHeight="40px" gutterSize="3px" [formGroup]="parameterForm"
+        <mat-grid-list cols="4" rowHeight="50px" gutterSize="3px" [formGroup]="parameterForm"
           class="parameter__content content-parameter">
           <!-- Параметры размера баннера -->
           <mat-grid-tile colspan="4" rowspan="1">
@@ -81,16 +81,17 @@
 
           <!-- Параметры изображения баннера -->
 
-          <div class="content-parameter__image">
+          <mat-grid-tile colspan="4" rowspan="1">Параметры фонового изображения</mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
             <mat-form-field class="mat-form-upload">
-              <mat-label>Выберите изображение для загрузки</mat-label>
+              <mat-label>Выберите изображение</mat-label>
               <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
               </ngx-mat-file-input>
               <mat-icon matSuffix>folder</mat-icon>
             </mat-form-field>
-          </div>
+          </mat-grid-tile>
 
-          <div class="image-position">
+          <mat-grid-tile colspan="2" rowspan="1" class="image-position">
             <mat-form-field appearance="fill">
               <mat-label>Расположение</mat-label>
               <mat-select disableRipple formControlName="imgPosition">
@@ -99,6 +100,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" class="image-position">
             <mat-form-field appearance="fill">
               <mat-label>Размер</mat-label>
               <mat-select formControlName="imgCover">
@@ -108,7 +111,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </mat-grid-tile>
 
           <div class="choice-color__option option-color">
             <mat-form-field appearance="fill">
