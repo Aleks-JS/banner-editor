@@ -117,6 +117,13 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
+  formatLabel(value: number) {
+    if (value >= 1) {
+      return value + 'd';
+    }
+    return value;
+  }
+
   // formsData$ = this.parameterForm.valueChanges.pipe(
   //   map((v) => {
   //     return v.width;
@@ -136,9 +143,7 @@ export class MainComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.dynamicStyle);
-  }
+  ngOnInit(): void {}
 
   previewFile(fileInput: any) {
     this.imageError = null;
