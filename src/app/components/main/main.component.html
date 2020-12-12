@@ -161,18 +161,14 @@
                   [style.background]="defaultTextColor" formControlName="textColor" />
               </mat-form-field>
 
-              <!-- <label for="color-text"> Цвет текста </label>
-              <input id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
-                [style.background]="defaultTextColor" formControlName="textColor" /> -->
-
             </div>
           </div>
           <div>
-            <label for="url">Ссылка для баннера: http://</label>
-            <input id="link" type="text" [placeholder]="inputLinkPlaceholder" formControlName="link" />
-            <div *ngIf="parameterForm.hasError('required','link') && parameterForm.controls['link'].touched">
-              Заполните url
-            </div>
+            <mat-form-field appearance="fill">
+              <mat-label>Введите url без http://</mat-label>
+              <input matInput type="text" formControlName="link" required />
+              <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
+            </mat-form-field>
           </div>
         </div>
       </div>

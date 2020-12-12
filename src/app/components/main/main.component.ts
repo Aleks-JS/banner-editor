@@ -88,6 +88,7 @@ export class MainComponent implements OnInit {
   lineHeightDefault: number = LINE_HEIGHT_DEFAULT;
   maxLinesOfText: number = MAX_NUM_LINE_OF_TEXT;
   textConfigList = textConfigurationList;
+  patternUrl: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   screenCopy;
 
   /* form group */
@@ -103,7 +104,7 @@ export class MainComponent implements OnInit {
     imgCover: [this.bgSizeOptions[0][1]],
     bgGradient: [false],
     text: [null, Validators.required],
-    link: ['', Validators.required],
+    link: ['', [Validators.required, Validators.pattern(this.patternUrl)]],
     textAlign: [this.textConfigList[0].styleValue[0]],
     fontFamily: [this.textConfigList[1].styleValue[0]],
     fontSize: [this.textConfigList[2].styleValue[0]],
@@ -126,6 +127,14 @@ export class MainComponent implements OnInit {
 
   formatLabelWidth(value: number = INIT_WIDTH_PREVIEW) {
     return value + 'px';
+  }
+
+  getErrorMessageLink() {
+    return this.parameterForm.hasError('required', 'link')
+      ? 'Обязательное поле для ввода'
+      : this.parameterForm.hasError('pattern', 'link')
+      ? 'Неверный url'
+      : '';
   }
 
   // formsData$ = this.parameterForm.valueChanges.pipe(
