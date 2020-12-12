@@ -1,4 +1,7 @@
 <main class="main">
+  <mat-toolbar color="primary">
+    Banner editor
+  </mat-toolbar>
   <div class="main__content container">
     <div class="preview _container">
       <div class="preview">
@@ -75,10 +78,14 @@
               </div>
             </div>
           </div>
+
           <div class="content-parameter__image">
-            <div class="image-selection">
-              <input id="uploadImage" type="file" formControlName="bgImage" (change)="previewFile($event)" />
-            </div>
+            <mat-form-field class="mat-form-upload">
+              <mat-label>Выберите изображение для загрузки</mat-label>
+              <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
+              </ngx-mat-file-input>
+              <mat-icon matSuffix>folder</mat-icon>
+            </mat-form-field>
           </div>
 
           <div class="image-position">
