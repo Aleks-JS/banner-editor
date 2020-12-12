@@ -196,6 +196,7 @@ export class MainComponent implements OnInit {
             console.log(this.imageError);
             return false;
           } else {
+            console.log(e.target.result);
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;

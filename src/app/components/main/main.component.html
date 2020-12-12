@@ -15,7 +15,7 @@
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
               backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
-              backgroundImage: 'url(' + cardImageBase64 + ')',
+              backgroundImage: !cardImageBase64 ? 'none' : 'url(' + cardImageBase64 + ')',
               backgroundColor: defaultColor,
               background: parameterForm.get('bgGradient').value
                 ? 'linear-gradient(' +
@@ -177,7 +177,10 @@
           <h3 class="title-export">Экспорт баннера</h3>
         </div>
         <div class="export__buttons" #container>
-          <button class="to__png" (click)="downloadImage()" [disabled]="parameterForm.invalid">в PNG</button>
+          <!-- <button (click)="downloadImage()">name</button> -->
+
+          <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в PNG
+            <mat-icon>file_copy</mat-icon></button>
           <button class="to__html" (click)="copyContent()" [disabled]="parameterForm.invalid">в
             HTML</button>
           <button class="to__json" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON</button>
