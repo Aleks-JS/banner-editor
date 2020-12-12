@@ -124,6 +124,10 @@ export class MainComponent implements OnInit {
     return value;
   }
 
+  formatLabelWidth(value: number = INIT_WIDTH_PREVIEW) {
+    return value + 'px';
+  }
+
   // formsData$ = this.parameterForm.valueChanges.pipe(
   //   map((v) => {
   //     return v.width;

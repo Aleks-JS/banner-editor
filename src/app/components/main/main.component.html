@@ -32,7 +32,7 @@
               <pre [style]="{
                   display: 'block',
                   position: 'absolute',
-                  width: parameterForm.get('width').value + 'px',
+                  width: parameterForm.get('widthText').value + 'px',
                   lineHeight: lineHeightDefault,
                   maxHeight: parameterForm.get('fontSize').value * lineHeightDefault * maxLinesOfText + 'px',
                   whiteSpace: 'pre-wrap',
@@ -123,8 +123,8 @@
               </mat-form-field>
 
               <label for="direction"> Направление </label>
-              <mat-slider thumbLabel id="direction" type="range" formControlName="colorDirection"
-                [displayWith]="formatLabel" vertical="true" min="0" max="360"></mat-slider>
+              <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
+                vertical="true" min="0" max="360"></mat-slider>
             </div>
           </div>
           <div content-parameter__text text-option>
@@ -139,14 +139,24 @@
               </mat-form-field>
             </div>
             <div class="text-option__setting">
-              <select *ngFor="let item of textConfigList" formControlName={{item.control}}>
-                <option *ngFor="let value of item.selectValue; let i = index" [ngValue]="item.styleValue[i]">{{value}}
-                </option>
+              <div class="setting-option__items" *ngFor="let item of textConfigList">
+                <mat-form-field appearance="fill">
+                  <mat-label>{{item.default}}</mat-label>
+                  <mat-select formControlName={{item.control}}>
+                    <mat-option *ngFor="let value of item.selectValue; let i = index" [value]="item.styleValue[i]">
+                      {{value}}
+                    </mat-option>
 
-              </select>
-              <label for="text-field-width">Ширина текста</label>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <mat-label for="width-text"> Ширина текста </mat-label>
+              <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
+                [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
+              </mat-slider>
+              <!-- <label for="text-field-width">Ширина текста</label>
               <input type="range" formControlName="widthText" id="text-field-width" min="50"
-                [max]="parameterForm.get('width').value">
+                [max]="parameterForm.get('width').value"> -->
               <label for="color-text"> Цвет текста </label>
               <input id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
                 [style.background]="defaultTextColor" formControlName="textColor" />
