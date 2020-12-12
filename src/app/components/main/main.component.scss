@@ -26,7 +26,11 @@ button {
 }
 
 .preview {
-    flex: 0 1 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 30%;
 }
 
 ._container {
@@ -34,7 +38,7 @@ button {
 }
 
 .parameters {
-    flex: 0 1 50%;
+    flex: 0 1 auto;
 }
 
 .parameter-forms {
