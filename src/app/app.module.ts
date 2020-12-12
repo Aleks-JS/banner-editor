@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { ClipboardModule } from 'ngx-clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialFileInputModule,
     MatCheckboxModule,
     MatSliderModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

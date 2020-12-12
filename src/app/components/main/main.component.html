@@ -56,28 +56,30 @@
         <div class="parameter__title">
           <h3 class="title-parameter">Параметры</h3>
         </div>
-        <div [formGroup]="parameterForm" class="parameter__content content-parameter">
-          <div class="content-parameter__size">
+        <mat-grid-list cols="4" rowHeight="40px" gutterSize="3px" [formGroup]="parameterForm"
+          class="parameter__content content-parameter">
+          <!-- Параметры размера баннера -->
+          <mat-grid-tile colspan="4" rowspan="1">
             <p class="size-title">Задание размеров макета в пикселях</p>
-            <div class="content-size__items">
-              <div class="content-size__item">
-                <mat-label class="size-label" for="horizontal">
-                  Ширина макета:
-                </mat-label>
-                <mat-form-field class="size-input">
-                  <input matInput type="number" min="100" max="500" formControlName="width" />
-                </mat-form-field>
-              </div>
-              <div class="content-size__item">
-                <mat-label class="size-label" for="vertical">
-                  Высота макета:
-                </mat-label>
-                <mat-form-field class="size-input">
-                  <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+            <mat-label class="size-label" for="horizontal">
+              Ширина макета:
+            </mat-label>
+            <mat-form-field class="size-input">
+              <input matInput type="number" min="100" max="500" formControlName="width" />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+            <mat-label class="size-label" for="vertical">
+              Высота макета:
+            </mat-label>
+            <mat-form-field class="size-input">
+              <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <!-- Параметры изображения баннера -->
 
           <div class="content-parameter__image">
             <mat-form-field class="mat-form-upload">
@@ -170,26 +172,28 @@
               <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
             </mat-form-field>
           </div>
-        </div>
-      </div>
-      <div class="export">
-        <div class="export__title">
-          <h3 class="title-export">Экспорт баннера</h3>
-        </div>
-        <div class="export__buttons" #container>
-          <!-- <button (click)="downloadImage()">name</button> -->
+          <div class="export">
+            <div class="export__title">
+              <h3 class="title-export">Экспорт баннера</h3>
+            </div>
+            <div class="export__buttons" #container>
+              <!-- <button (click)="downloadImage()">name</button> -->
 
-          <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в PNG
-            <mat-icon>save_alt</mat-icon></button>
-          <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-            HTML <mat-icon>file_copy</mat-icon></button>
-          <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
-            <mat-icon>content_copy</mat-icon></button>
-        </div>
-        <p>
-          Form Status: {{ parameterForm.status }}
-        </p>
+              <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
+                PNG
+                <mat-icon>save_alt</mat-icon></button>
+              <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
+                HTML <mat-icon>file_copy</mat-icon></button>
+              <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
+                <mat-icon>content_copy</mat-icon></button>
+            </div>
+            <p>
+              Form Status: {{ parameterForm.status }}
+            </p>
+          </div>
+        </mat-grid-list>
       </div>
+
     </div>
   </div>
   <div id="download">
