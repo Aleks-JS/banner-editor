@@ -52,164 +52,165 @@
       </div>
     </div>
     <div class="parameters _container">
-      <div class="parameter-forms">
-        <div class="parameter__title">
-          <h3 class="title-parameter">Параметры</h3>
-        </div>
-        <mat-grid-list cols="4" rowHeight="50px" gutterSize="3px" [formGroup]="parameterForm"
-          class="parameter__content content-parameter">
-          <!-- Параметры размера баннера -->
-          <mat-grid-tile colspan="4" rowspan="1">
-            <p class="size-title">Задание размеров макета в пикселях</p>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
-            <mat-label class="size-label" for="horizontal">
-              Ширина макета:
-            </mat-label>
-            <mat-form-field class="size-input">
-              <input matInput type="number" min="100" max="500" formControlName="width" />
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
-            <mat-label class="size-label" for="vertical">
-              Высота макета:
-            </mat-label>
-            <mat-form-field class="size-input">
-              <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <!-- Параметры изображения баннера -->
-
-          <mat-grid-tile colspan="4" rowspan="1">Параметры фонового изображения</mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
-            <mat-form-field class="mat-form-upload">
-              <mat-label>Выберите изображение</mat-label>
-              <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
-              </ngx-mat-file-input>
-              <mat-icon matSuffix>folder</mat-icon>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" rowspan="1" class="image-position">
-            <mat-form-field appearance="fill">
-              <mat-label>Расположение</mat-label>
-              <mat-select disableRipple formControlName="imgPosition">
-                <mat-option *ngFor="let position of bgPosOptions" [value]="position[1]">
-                  {{ position[0] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1" class="image-position">
-            <mat-form-field appearance="fill">
-              <mat-label>Размер</mat-label>
-              <mat-select formControlName="imgCover">
-                <mat-option>Исходный</mat-option>
-                <mat-option *ngFor="let size of bgSizeOptions" [value]="size[1]">
-                  {{ size[0] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <!-- Параметры фонового цвета -->
-          <mat-grid-tile colspan="4" rowspan="1">Параметры фонового цвета</mat-grid-tile>
-
-          <mat-grid-tile colspan="2" rowspan="1">
-            <mat-form-field appearance="fill">
-              <label for="colorFrom"> Выберите цвет фона </label>
-              <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
-                [style.background]="defaultColor" formControlName="bgColorFrom" />
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="1" rowspan="1">
-            <mat-checkbox id="gradient" formControlName="bgGradient">Градиент</mat-checkbox>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1" class="option-color__gradient"
-            *ngIf="parameterForm.get('bgGradient').value">
-            <mat-form-field appearance="fill">
-              <label for="colorTo"> Второй цвет в градиенте</label>
-              <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
-                [style.background]="defaultGradientColor" formControlName="bgColorTo" />
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="1" rowspan="2" class="option-color__gradient"
-            *ngIf="parameterForm.get('bgGradient').value">
-            <label for="direction"> Направление </label>
-            <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
-              vertical="true" min="0" max="360"></mat-slider>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="4" rowspan="1">Ввод текста и настройки позиционирования</mat-grid-tile>
-
-          <div content-parameter__text text-option>
-            <div class="text-option__input">
-              <mat-form-field appearance="fill">
-                <mat-label>Введите текст баннера</mat-label>
-                <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
-                  formControlName="text"></textarea>
-                <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
-                  Это поле обязательно для заполнения
-                </div>
-              </mat-form-field>
-            </div>
-            <div class="text-option__setting">
-              <div class="setting-option__items" *ngFor="let item of textConfigList">
-                <mat-form-field appearance="fill">
-                  <mat-label>{{item.default}}</mat-label>
-                  <mat-select formControlName={{item.control}}>
-                    <mat-option *ngFor="let value of item.selectValue; let i = index" [value]="item.styleValue[i]">
-                      {{value}}
-                    </mat-option>
-
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <mat-label for="width-text"> Ширина текста </mat-label>
-              <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
-                [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
-              </mat-slider>
-
-              <mat-form-field appearance="fill">
-                <label for="color-text"> Цвет текста </label>
-                <input matInput id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
-                  [style.background]="defaultTextColor" formControlName="textColor" />
-              </mat-form-field>
-
-            </div>
-          </div>
-          <div>
-            <mat-form-field appearance="fill">
-              <mat-label>Введите url без http://</mat-label>
-              <input matInput type="text" formControlName="link" required />
-              <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="export">
-            <div class="export__title">
-              <h3 class="title-export">Экспорт баннера</h3>
-            </div>
-            <div class="export__buttons" #container>
-              <!-- <button (click)="downloadImage()">name</button> -->
-
-              <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
-                PNG
-                <mat-icon>save_alt</mat-icon></button>
-              <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-                HTML <mat-icon>file_copy</mat-icon></button>
-              <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
-                <mat-icon>content_copy</mat-icon></button>
-            </div>
-            <p>
-              Form Status: {{ parameterForm.status }}
-            </p>
-          </div>
-        </mat-grid-list>
+      <div class="parameter__title">
+        <h3 class="title-parameter">Параметры</h3>
       </div>
+      <mat-grid-list cols="4" rowHeight="50px" gutterSize="3px" [formGroup]="parameterForm"
+        class="parameter__content content-parameter">
+        <!-- Параметры размера баннера -->
+        <mat-grid-tile colspan="4" rowspan="1">
+          <p class="size-title">Задание размеров макета в пикселях</p>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+          <mat-label class="size-label" for="horizontal">
+            Ширина макета:
+          </mat-label>
+          <mat-form-field class="size-input">
+            <input matInput type="number" min="100" max="500" formControlName="width" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+          <mat-label class="size-label" for="vertical">
+            Высота макета:
+          </mat-label>
+          <mat-form-field class="size-input">
+            <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
+          </mat-form-field>
+        </mat-grid-tile>
 
+        <!-- Параметры изображения баннера -->
+
+        <mat-grid-tile colspan="4" rowspan="1">Параметры фонового изображения</mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
+          <mat-form-field class="mat-form-upload">
+            <mat-label>Выберите изображение</mat-label>
+            <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
+            </ngx-mat-file-input>
+            <mat-icon matSuffix>folder</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1" class="image-position">
+          <mat-form-field appearance="fill">
+            <mat-label>Расположение</mat-label>
+            <mat-select disableRipple formControlName="imgPosition">
+              <mat-option *ngFor="let position of bgPosOptions" [value]="position[1]">
+                {{ position[0] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1" class="image-position">
+          <mat-form-field appearance="fill">
+            <mat-label>Размер</mat-label>
+            <mat-select formControlName="imgCover">
+              <mat-option>Исходный</mat-option>
+              <mat-option *ngFor="let size of bgSizeOptions" [value]="size[1]">
+                {{ size[0] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <!-- Параметры фонового цвета -->
+        <mat-grid-tile colspan="4" rowspan="1">Параметры фонового цвета</mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-form-field appearance="fill">
+            <label for="colorFrom"> Выберите цвет фона </label>
+            <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
+              [style.background]="defaultColor" formControlName="bgColorFrom" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1">
+          <mat-checkbox id="gradient" formControlName="bgGradient">Градиент</mat-checkbox>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1" class="option-color__gradient"
+          *ngIf="parameterForm.get('bgGradient').value">
+          <mat-form-field appearance="fill">
+            <label for="colorTo"> Второй цвет в градиенте</label>
+            <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
+              [style.background]="defaultGradientColor" formControlName="bgColorTo" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="2" class="option-color__gradient"
+          *ngIf="parameterForm.get('bgGradient').value">
+          <label for="direction"> Направление </label>
+          <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
+            vertical="true" min="0" max="360"></mat-slider>
+        </mat-grid-tile>
+
+        <!-- Параметры текста -->
+        <mat-grid-tile colspan="4" rowspan="1">Ввод текста и настройки позиционирования</mat-grid-tile>
+
+
+        <mat-grid-tile colspan="4" rowspan="2" class="text-option__input">
+          <mat-form-field appearance="fill">
+            <mat-label>Введите текст баннера</mat-label>
+            <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
+              formControlName="text"></textarea>
+            <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
+              Это поле обязательно для заполнения
+            </div>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
+          <mat-form-field appearance="fill">
+            <mat-label>{{item.default}}</mat-label>
+            <mat-select formControlName={{item.control}}>
+              <mat-option *ngFor="let value of item.selectValue; let i = index" [value]="item.styleValue[i]">
+                {{value}}
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1">
+          <mat-label for="width-text"> Ширина текста </mat-label>
+          <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
+            [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
+          </mat-slider>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-form-field appearance="fill">
+            <label for="color-text"> Цвет текста </label>
+            <input matInput id="color-text" class="choice-color color-text" [(colorPicker)]="defaultTextColor"
+              [style.background]="defaultTextColor" formControlName="textColor" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-form-field appearance="fill">
+            <mat-label>Введите url без http://</mat-label>
+            <input matInput type="text" formControlName="link" required />
+            <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <div class="export">
+          <div class="export__title">
+            <h3 class="title-export">Экспорт баннера</h3>
+          </div>
+          <div class="export__buttons" #container>
+            <!-- <button (click)="downloadImage()">name</button> -->
+
+            <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
+              PNG
+              <mat-icon>save_alt</mat-icon></button>
+            <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
+              HTML <mat-icon>file_copy</mat-icon></button>
+            <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
+              <mat-icon>content_copy</mat-icon></button>
+          </div>
+          <p>
+            Form Status: {{ parameterForm.status }}
+          </p>
+        </div>
+      </mat-grid-list>
     </div>
+
   </div>
+
   <div id="download">
     <img #canvas>
     <a #downloadLink></a>
