@@ -32,7 +32,7 @@
               <pre [style]="{
                   display: 'block',
                   position: 'absolute',
-                  width: parameterForm.get('widthText').value + 'px',
+                  width: parameterForm.get('width').value + 'px',
                   lineHeight: lineHeightDefault,
                   maxHeight: parameterForm.get('fontSize').value * lineHeightDefault * maxLinesOfText + 'px',
                   whiteSpace: 'pre-wrap',
@@ -128,12 +128,14 @@
           </div>
           <div content-parameter__text text-option>
             <div class="text-option__input">
-              <label for="text"> Введите текст баннера </label>
-              <textarea id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
-                formControlName="text"></textarea>
-              <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
-                Заполните поле с текстом
-              </div>
+              <mat-form-field appearance="fill">
+                <mat-label>Введите текст баннера</mat-label>
+                <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
+                  formControlName="text"></textarea>
+                <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
+                  Это поле обязательно для заполнения
+                </div>
+              </mat-form-field>
             </div>
             <div class="text-option__setting">
               <select *ngFor="let item of textConfigList" formControlName={{item.control}}>
