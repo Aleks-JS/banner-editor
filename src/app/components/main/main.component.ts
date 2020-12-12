@@ -98,6 +98,7 @@ export class MainComponent implements OnInit {
     width: [INIT_WIDTH_PREVIEW],
     height: [INIT_HEIGHT_PREVIEW],
     bgImage: [null],
+    fileAttr: ['Выберите изображение для фона'],
     bgColorFrom: [null],
     bgColorTo: [null],
     colorDirection: [this.angleGradient],

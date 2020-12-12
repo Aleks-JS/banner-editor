@@ -81,18 +81,18 @@ button {
     align-items: center;
 }
 
-.size-input input {
+.size-input {
+    margin: 0 12px;
     max-width: 70px;
-    padding: 3px;
+    text-align: center;
 }
 
-.content-parameter__image {
-    display: flex;
-}
+
+
 
 // .image-position {
-    //     width: 100%;
-    // }
+//     width: 100%;
+// }
 
 .choice-color {
     padding: 3px;

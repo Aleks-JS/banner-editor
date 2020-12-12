@@ -58,48 +58,48 @@
             <p class="size-title">Задание размеров макета в пикселях</p>
             <div class="content-size__items">
               <div class="content-size__item">
-                <label class="size-label" for="horizontal">
+                <mat-label class="size-label" for="horizontal">
                   Ширина макета:
-                </label>
-                <div class="size-input">
-                  <input type="number" min="100" max="500" formControlName="width" />
-                </div>
+                </mat-label>
+                <mat-form-field class="size-input">
+                  <input matInput type="number" min="100" max="500" formControlName="width" />
+                </mat-form-field>
               </div>
               <div class="content-size__item">
-                <label class="size-label" for="vertical">
+                <mat-label class="size-label" for="vertical">
                   Высота макета:
-                </label>
-                <div class="size-input">
-                  <input id="vertical" type="number" min="100" max="500" formControlName="height" />
-                </div>
-                <div class="size-option"></div>
+                </mat-label>
+                <mat-form-field class="size-input">
+                  <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
+                </mat-form-field>
               </div>
             </div>
           </div>
           <div class="content-parameter__image">
             <div class="image-selection">
-              <label for="image"> Загрузить изображение: </label>
-
-              <input id="image" type="file" formControlName="bgImage" (change)="previewFile($event)" />
-            </div>
-            <div class="image-position">
-              <select id="image-center" formControlName="imgPosition">
-                <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">
-                  {{ position[0] }}
-                </option>
-              </select>
-              <select id="image-size" formControlName="imgCover">
-                <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">
-                  {{ size[0] }}
-                </option>
-              </select>
+              <input id="uploadImage" type="file" formControlName="bgImage" (change)="previewFile($event)" />
             </div>
           </div>
-          <div class="choice-color__option option-color">
-            <label for="colorFrom"> Выбрать цвет </label>
-            <input id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
-              [style.background]="defaultColor" formControlName="bgColorFrom" />
 
+          <div class="image-position">
+            <select id="image-center" formControlName="imgPosition">
+              <option *ngFor="let position of bgPosOptions" [ngValue]="position[1]">
+                {{ position[0] }}
+              </option>
+            </select>
+            <select id="image-size" formControlName="imgCover">
+              <option *ngFor="let size of bgSizeOptions" [ngValue]="size[1]">
+                {{ size[0] }}
+              </option>
+            </select>
+          </div>
+
+          <div class="choice-color__option option-color">
+            <mat-form-field appearance="fill">
+              <label for="colorFrom"> Выберите цвет фона </label>
+              <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
+                [style.background]="defaultColor" formControlName="bgColorFrom" />
+            </mat-form-field>
             <input type="checkbox" id="gradient" formControlName="bgGradient" /><label for="gradient">Градиент</label>
             <div class="option-color__gradient" *ngIf="parameterForm.get('bgGradient').value">
               <label for="colorTo"> Второй цвет </label>
