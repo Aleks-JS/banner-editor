@@ -129,6 +129,24 @@ button {
     text-decoration: none;
 }
 
+.export__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0;
+
+    >button {
+        margin-bottom: 5px;
+    }
+
+    >:nth-child(1) {
+        margin-right: 5px;
+    }
+
+    >:nth-child(2) {
+        margin-right: 5px;
+    }
+}
+
 
 // #download {
 //     display: none;

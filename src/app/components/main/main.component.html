@@ -180,10 +180,11 @@
           <!-- <button (click)="downloadImage()">name</button> -->
 
           <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в PNG
-            <mat-icon>file_copy</mat-icon></button>
-          <button class="to__html" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-            HTML</button>
-          <button class="to__json" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON</button>
+            <mat-icon>save_alt</mat-icon></button>
+          <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
+            HTML <mat-icon>file_copy</mat-icon></button>
+          <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
+            <mat-icon>content_copy</mat-icon></button>
         </div>
         <p>
           Form Status: {{ parameterForm.status }}

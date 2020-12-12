@@ -88,7 +88,7 @@ export class MainComponent implements OnInit {
   lineHeightDefault: number = LINE_HEIGHT_DEFAULT;
   maxLinesOfText: number = MAX_NUM_LINE_OF_TEXT;
   textConfigList = textConfigurationList;
-  patternUrl: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  patternUrl: RegExp = /^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
   screenCopy;
 
   /* form group */
