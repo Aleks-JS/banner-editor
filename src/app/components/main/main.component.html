@@ -49,6 +49,22 @@
             </div>
           </div>
         </div>
+        <div class="export">
+          <div class="export__buttons" #container>
+            <!-- <button (click)="downloadImage()">name</button> -->
+
+            <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
+              PNG
+              <mat-icon>save_alt</mat-icon></button>
+            <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
+              HTML <mat-icon>file_copy</mat-icon></button>
+            <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
+              <mat-icon>content_copy</mat-icon></button>
+          </div>
+          <p>
+            Form Status: {{ parameterForm.status }}
+          </p>
+        </div>
       </div>
     </div>
     <div class="parameters _container">
@@ -187,25 +203,6 @@
             <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
           </mat-form-field>
         </mat-grid-tile>
-        <div class="export">
-          <div class="export__title">
-            <h3 class="title-export">Экспорт баннера</h3>
-          </div>
-          <div class="export__buttons" #container>
-            <!-- <button (click)="downloadImage()">name</button> -->
-
-            <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
-              PNG
-              <mat-icon>save_alt</mat-icon></button>
-            <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-              HTML <mat-icon>file_copy</mat-icon></button>
-            <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
-              <mat-icon>content_copy</mat-icon></button>
-          </div>
-          <p>
-            Form Status: {{ parameterForm.status }}
-          </p>
-        </div>
       </mat-grid-list>
     </div>
 
