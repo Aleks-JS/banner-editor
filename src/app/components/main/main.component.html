@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="parameters _container">
-      <mat-grid-list cols="4" rowHeight="50px" gutterSize="3px" [formGroup]="parameterForm"
+      <mat-grid-list cols="4" rowHeight="50px" gutterSize="5px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
         <!-- Параметры размера баннера -->
         <mat-grid-tile colspan="4" rowspan="1">
@@ -163,13 +163,13 @@
 
 
         <mat-grid-tile colspan="4" rowspan="2" class="text-option__input">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="text-field-wrap">
             <mat-label>Введите текст баннера</mat-label>
             <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
               formControlName="text"></textarea>
-            <div *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
+            <mat-error *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
               Это поле обязательно для заполнения
-            </div>
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 

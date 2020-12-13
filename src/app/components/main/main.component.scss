@@ -129,13 +129,16 @@ button {
     -o-border-radius: 4px;
 }
 
-.text-field {
-    width: 350px;
-    resize: none;
+.text-field-wrap {
+    width: 70%;
 }
 
 .text-field.ng-touched.ng-invalid {
     border-color: red;
+}
+
+.setting-option__items {
+    margin-top: 10px;
 }
 
 .preview__body-content {
