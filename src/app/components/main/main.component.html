@@ -68,9 +68,6 @@
       </div>
     </div>
     <div class="parameters _container">
-      <div class="parameter__title">
-        <h3 class="title-parameter">Параметры</h3>
-      </div>
       <mat-grid-list cols="4" rowHeight="50px" gutterSize="3px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
         <!-- Параметры размера баннера -->
@@ -97,7 +94,8 @@
         <!-- Параметры изображения баннера -->
 
         <mat-grid-tile colspan="4" rowspan="1">Параметры фонового изображения</mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
+        <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="2" class="content-parameter__image">
           <mat-form-field class="mat-form-upload">
             <mat-label>Выберите изображение</mat-label>
             <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
@@ -131,29 +129,33 @@
         <!-- Параметры фонового цвета -->
         <mat-grid-tile colspan="4" rowspan="1">Параметры фонового цвета</mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="1">
-          <mat-form-field appearance="fill">
-            <label for="colorFrom"> Выберите цвет фона </label>
-            <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
-              [style.background]="defaultColor" formControlName="bgColorFrom" />
-          </mat-form-field>
-        </mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="1">
           <mat-checkbox id="gradient" formControlName="bgGradient">Градиент</mat-checkbox>
         </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="1" class="option-color__gradient"
+        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+
+        <mat-grid-tile colspan="1" rowspan="3" class="choose-bg-color-grad"
           *ngIf="parameterForm.get('bgGradient').value">
-          <mat-form-field appearance="fill">
-            <label for="colorTo"> Второй цвет в градиенте</label>
-            <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
-              [style.background]="defaultGradientColor" formControlName="bgColorTo" />
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="2" class="option-color__gradient"
-          *ngIf="parameterForm.get('bgGradient').value">
-          <label for="direction"> Направление </label>
+          <label for="direction"> Направление градиента </label>
           <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
             vertical="true" min="0" max="360"></mat-slider>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="3"></mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="2">
+          <mat-form-field class="choose-bg-color" appearance="fill">
+            <label for="colorFrom"> Цвет фона </label>
+            <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
+              [style.background]="defaultColor" formControlName="bgColorFrom" />
+          </mat-form-field>
+
+          <div class="option-color__gradient" *ngIf="parameterForm.get('bgGradient').value">
+            <mat-form-field class="choose-bg-color-grad" appearance="fill">
+              <label for="colorTo"> Второй цвет фона </label>
+              <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
+                [style.background]="defaultGradientColor" formControlName="bgColorTo" />
+
+            </mat-form-field>
+          </div>
         </mat-grid-tile>
 
         <!-- Параметры текста -->

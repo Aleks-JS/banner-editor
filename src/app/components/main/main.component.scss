@@ -20,6 +20,10 @@ button {
     min-height: 100%;
 }
 
+.mat-grid-tile {
+    overflow: initial;
+}
+
 .main__content {
     display: flex;
     justify-content: space-around;
@@ -38,7 +42,7 @@ button {
 }
 
 .parameters {
-    flex: 0 1 auto;
+    flex: 0 1 60%;
 }
 
 .parameter-forms {
@@ -74,24 +78,6 @@ button {
     flex-wrap: wrap;
 }
 
-.content-size__items {
-    display: flex;
-    width: 100%;
-}
-
-.content-size__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.size-input {
-    margin: 0 12px;
-    max-width: 70px;
-    text-align: center;
-}
-
-
 .mat-form-upload {
     width: 100%;
 }
@@ -100,9 +86,41 @@ button {
     margin-right: 5px;
 }
 
+.choose-bg-color {
+    margin-right: 5px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
+
+.choose-bg-color-grad {
+    transition: .5s;
+    animation: show 1s 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    -webkit-animation: show 1s 1;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
 .choice-color {
     padding: 3px;
-    max-width: 25px;
+    max-width: 100%;
     max-height: 25px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -146,8 +164,3 @@ button {
         margin-right: 5px;
     }
 }
-
-
-// #download {
-//     display: none;
-// }
