@@ -1,19 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-* {
+*,
+*:after,
+*:before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
 }
 
-
-html,
 body {
-    height: 100vh;
-}
-
-body {
-    margin: 0;
+    height: 100%;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-root {
+    display: block;
+    height: 100vh;
 }
 
 ul {

@@ -104,7 +104,7 @@ export class MainComponent implements OnInit {
     imgCover: [this.bgSizeOptions[0][1]],
     bgGradient: [false],
     text: [null, Validators.required],
-    link: ['', [Validators.required, Validators.pattern(this.patternUrl)]],
+    link: ['', Validators.required],
     textAlign: [this.textConfigList[0].styleValue[0]],
     fontFamily: [this.textConfigList[1].styleValue[0]],
     fontSize: [this.textConfigList[2].styleValue[0]],
@@ -132,8 +132,6 @@ export class MainComponent implements OnInit {
   getErrorMessageLink() {
     return this.parameterForm.hasError('required', 'link')
       ? 'Обязательное поле для ввода'
-      : this.parameterForm.hasError('pattern', 'link')
-      ? 'Неверный url'
       : '';
   }
 
@@ -145,8 +143,8 @@ export class MainComponent implements OnInit {
   // );
 
   @ViewChild('screen') screen: ElementRef;
-  @ViewChild('canvas') canvas: ElementRef;
-  @ViewChild('downloadLink') downloadLink: ElementRef;
+  // @ViewChild('canvas') canvas: ElementRef;
+  // @ViewChild('downloadLink') downloadLink: ElementRef;
   @ViewChild('content') content: ElementRef;
 
   destroyed$ = new Subject();
@@ -196,7 +194,6 @@ export class MainComponent implements OnInit {
             console.log(this.imageError);
             return false;
           } else {
-            console.log(e.target.result);
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;
@@ -210,11 +207,11 @@ export class MainComponent implements OnInit {
   /* download to PNG */
   downloadImage() {
     html2canvas(this.screen.nativeElement).then((canvas) => {
-      this.canvas.nativeElement.src = canvas.toDataURL();
-      console.log(this.canvas.nativeElement.src);
-      this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-      this.downloadLink.nativeElement.download = `banner-${new Date().toISOString()}.png`;
-      this.downloadLink.nativeElement.click();
+      const link = document.createElement('a');
+      const fileName = `banner-${new Date().toISOString()}.png`;
+      link.href = canvas.toDataURL();
+      link.download = fileName;
+      document.body.appendChild(link);
     });
   }
 

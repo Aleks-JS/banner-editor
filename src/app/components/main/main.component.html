@@ -4,11 +4,10 @@
   </mat-toolbar>
   <div class="main__content container">
     <div class="preview _container">
-      <div class="preview">
-        <div class="preview__body body-preview">
-          <div class="body-preview__wrap" #content
-            [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
-            <div #screen class="preview__body-content" [style]="{
+      <div class="body-preview__wrap">
+        <div class="preview__body body-preview" #content
+          [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
+          <div #screen class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
               backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
@@ -26,7 +25,7 @@
               backgroundPosition: parameterForm.get('imgPosition').value,
               backgroundSize: parameterForm.get('imgCover').value
             }">
-              <pre [style]="{
+            <pre [style]="{
                   display: 'block',
                   position: 'absolute',
                   width: parameterForm.get('widthText').value + 'px',
@@ -41,39 +40,37 @@
                   fontWeight: parameterForm.get('fontWeight').value,
                   color: defaultTextColor
                 }" cdkDragBoundary=".preview__body-content" cdkDrag>{{ parameterForm.get('text').value }}</pre>
-              <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank"
-                style="display: block; height: 100%;"></a>
-            </div>
+            <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank"
+              style="display: block; height: 100%;"></a>
           </div>
         </div>
-        <div class="link-input" [formGroup]="parameterForm">
-          <mat-form-field appearance="fill">
-            <mat-label>Введите url без http://</mat-label>
-            <input matInput type="text" formControlName="link" required />
-            <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="export">
-          <div class="export__buttons" #container>
-            <!-- <button (click)="downloadImage()">name</button> -->
+      </div>
+      <div class="link-input" [formGroup]="parameterForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Введите url без http://</mat-label>
+          <input matInput type="text" formControlName="link" required />
+          <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="export">
+        <div class="export__buttons" #container>
 
-            <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
-              PNG
-              <mat-icon>save_alt</mat-icon></button>
-            <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-              HTML <mat-icon>file_copy</mat-icon></button>
-            <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
-              <mat-icon>content_copy</mat-icon></button>
-          </div>
-          <p>
-            Form Status: {{ parameterForm.status }}
-          </p>
+          <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
+            PNG
+            <mat-icon>save_alt</mat-icon></button>
+          <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
+            HTML <mat-icon>file_copy</mat-icon></button>
+          <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
+            <mat-icon>content_copy</mat-icon></button>
         </div>
+        <p>
+          Form Status: {{ parameterForm.status }}
+        </p>
       </div>
     </div>
 
     <div class="parameters _container">
-      <mat-grid-list cols="4" rowHeight="50px" gutterSize="5px" [formGroup]="parameterForm"
+      <mat-grid-list cols="4" rowHeight="fit" gutterSize="5px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
         <!-- Параметры размера баннера -->
         <mat-grid-tile colspan="4" rowspan="1" class="title">
@@ -206,8 +203,4 @@
 
   </div>
 
-  <div id="download">
-    <img #canvas>
-    <a #downloadLink></a>
-  </div>
 </main>
