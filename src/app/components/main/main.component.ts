@@ -212,6 +212,7 @@ export class MainComponent implements OnInit {
       link.href = canvas.toDataURL();
       link.download = fileName;
       document.body.appendChild(link);
+      link.click();
       link.remove();
     });
   }

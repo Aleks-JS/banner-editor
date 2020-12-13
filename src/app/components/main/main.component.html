@@ -5,8 +5,7 @@
   <div class="main__content container">
     <div class="preview _container">
       <div class="body-preview__wrap">
-        <div class="preview__body body-preview" #content
-          [style]="{width: parameterForm.get('width').value + 6 + 'px',height: parameterForm.get('height').value + 6 + 'px'}">
+        <div class="preview__body body-preview" #content>
           <div #screen class="preview__body-content" [style]="{
               width: parameterForm.get('width').value + 'px',
               height: parameterForm.get('height').value + 'px',
@@ -63,9 +62,6 @@
           <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
             <mat-icon>content_copy</mat-icon></button>
         </div>
-        <p>
-          Form Status: {{ parameterForm.status }}
-        </p>
       </div>
     </div>
 
