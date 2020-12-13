@@ -62,28 +62,37 @@ button {
     -o-border-radius: 5px;
 }
 
+
+
+.export__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0;
+
+    >button {
+        margin-bottom: 5px;
+    }
+
+    >:nth-child(1) {
+        margin-right: 5px;
+    }
+
+    >:nth-child(2) {
+        margin-right: 5px;
+    }
+}
+
 .content-parameter {
     width: 100%;
 }
 
-.content-parameter form {
-    width: 100%;
-}
-
-.content-parameter__size {
-    border: 1px solid blue;
-    display: flex;
-    padding: 5px;
-    width: 100%;
-    flex-wrap: wrap;
+.preview__body-content {
+    display: block;
+    position: relative;
 }
 
 .mat-form-upload {
     width: 100%;
-}
-
-.image-position {
-    margin-right: 5px;
 }
 
 .choose-bg-color {
@@ -141,29 +150,16 @@ button {
     margin-top: 10px;
 }
 
-.preview__body-content {
-    display: block;
-    position: relative;
+.item-option {
+    width: 75%;
 }
 
 .banner-link {
     text-decoration: none;
 }
 
-.export__buttons {
+.link-input {
     display: flex;
-    flex-wrap: wrap;
-    padding: 10px 0;
-
-    >button {
-        margin-bottom: 5px;
-    }
-
-    >:nth-child(1) {
-        margin-right: 5px;
-    }
-
-    >:nth-child(2) {
-        margin-right: 5px;
-    }
+    justify-content: center;
+    padding: 10px;
 }

@@ -49,6 +49,13 @@
             </div>
           </div>
         </div>
+        <div class="link-input">
+          <mat-form-field appearance="fill">
+            <mat-label>Введите url без http://</mat-label>
+            <input matInput type="text" formControlName="link" required />
+            <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
+          </mat-form-field>
+        </div>
         <div class="export">
           <div class="export__buttons" #container>
             <!-- <button (click)="downloadImage()">name</button> -->
@@ -67,6 +74,7 @@
         </div>
       </div>
     </div>
+
     <div class="parameters _container">
       <mat-grid-list cols="4" rowHeight="50px" gutterSize="5px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
@@ -129,10 +137,11 @@
         <!-- Параметры фонового цвета -->
         <mat-grid-tile colspan="4" rowspan="1">Параметры фонового цвета</mat-grid-tile>
 
-        <mat-grid-tile colspan="1" rowspan="1">
-          <mat-checkbox id="gradient" formControlName="bgGradient">Градиент</mat-checkbox>
-        </mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1">
+          <mat-checkbox id="gradient" formControlName="bgGradient">Добавить градиент</mat-checkbox>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="3"></mat-grid-tile>
 
         <mat-grid-tile colspan="1" rowspan="3" class="choose-bg-color-grad"
           *ngIf="parameterForm.get('bgGradient').value">
@@ -140,7 +149,6 @@
           <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
             vertical="true" min="0" max="360"></mat-slider>
         </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="3"></mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="2">
           <mat-form-field class="choose-bg-color" appearance="fill">
             <label for="colorFrom"> Цвет фона </label>
@@ -174,7 +182,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile colspan="2" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="item-option">
             <mat-label>{{item.default}}</mat-label>
             <mat-select formControlName={{item.control}}>
               <mat-option *ngFor="let value of item.selectValue; let i = index" [value]="item.styleValue[i]">
@@ -198,13 +206,7 @@
               [style.background]="defaultTextColor" formControlName="textColor" />
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="1">
-          <mat-form-field appearance="fill">
-            <mat-label>Введите url без http://</mat-label>
-            <input matInput type="text" formControlName="link" required />
-            <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
+
       </mat-grid-list>
     </div>
 

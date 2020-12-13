@@ -110,7 +110,7 @@ export class MainComponent implements OnInit {
     fontSize: [this.textConfigList[2].styleValue[0]],
     fontWeight: [this.textConfigList[3].styleValue[0]],
     widthText: [INIT_WIDTH_PREVIEW],
-    textColor: this.defaultTextColor,
+    textColor: [null],
   });
 
   dynamicStyle = {
