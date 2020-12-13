@@ -21,7 +21,8 @@ button {
     display: flex;
     justify-content: space-around;
     height: 100vh;
-    width: 1280px;
+    width: 100%;
+    max-width: 1280px;
 }
 
 .preview {
@@ -47,8 +48,7 @@ button {
     padding: 0 5px;
 }
 
-
-.body-preview {
+.body-preview__wrap {
     display: block;
     border: 2px solid rgba(137, 137, 255, 0.63);
     border-radius: 5px;
