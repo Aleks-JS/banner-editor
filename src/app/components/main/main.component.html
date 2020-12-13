@@ -68,13 +68,13 @@
     </div>
 
     <div class="parameters _container">
-      <mat-grid-list cols="6" rowHeight="fit" gutterSize="5px" [formGroup]="parameterForm"
+      <mat-grid-list cols="8" rowHeight="fit" gutterSize="2px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
         <!-- Параметры размера баннера -->
-        <mat-grid-tile colspan="6" rowspan="1" class="title">
+        <mat-grid-tile colspan="8" rowspan="1" class="title">
           Задание размеров макета в пикселях
         </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+        <mat-grid-tile colspan="3" rowspan="1" class="content-size__item">
           <mat-label class="size-label" for="horizontal">
             Ширина макета:
           </mat-label>
@@ -82,7 +82,9 @@
             <input matInput type="number" min="100" max="500" formControlName="width" />
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
+        <mat-grid-tile colspan="1" rowspan="1">
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3" rowspan="1" class="content-size__item">
           <mat-label class="size-label" for="vertical">
             Высота макета:
           </mat-label>
@@ -93,8 +95,8 @@
 
         <!-- Параметры изображения баннера -->
 
-        <mat-grid-tile colspan="6" rowspan="1" class="title">Параметры фонового изображения</mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
+        <mat-grid-tile colspan="8" rowspan="1" class="title">Параметры фонового изображения</mat-grid-tile>
+        <mat-grid-tile colspan="3" rowspan="1" class="content-parameter__image">
           <mat-form-field class="mat-form-upload">
             <mat-label>Выберите изображение</mat-label>
             <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
@@ -113,6 +115,8 @@
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1">
+        </mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="1" class="image-position">
           <mat-form-field appearance="fill" class="input-image-position">
             <mat-label>Размер</mat-label>
@@ -126,13 +130,12 @@
         </mat-grid-tile>
 
         <!-- Параметры фонового цвета -->
-        <mat-grid-tile colspan="6" rowspan="1" class="title">Параметры фонового цвета</mat-grid-tile>
+        <mat-grid-tile colspan="8" rowspan="1" class="title">Параметры фонового цвета</mat-grid-tile>
 
-        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1">
+        <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox id="gradient" formControlName="bgGradient">Добавить градиент</mat-checkbox>
         </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1"></mat-grid-tile>
 
         <mat-grid-tile colspan="1" rowspan="3" class="choose-bg-color-grad"
           *ngIf="parameterForm.get('bgGradient').value">
@@ -140,7 +143,7 @@
           <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
             vertical="true" min="0" max="360"></mat-slider>
         </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="2">
+        <mat-grid-tile colspan="5" rowspan="2">
           <mat-form-field class="choose-bg-color choose-color" appearance="fill">
             <label for="colorFrom"> Цвет фона </label>
             <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
@@ -154,11 +157,12 @@
               [style.background]="defaultGradientColor" formControlName="bgColorTo" />
           </mat-form-field>
         </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
 
         <!-- Параметры текста -->
-        <mat-grid-tile colspan="6" rowspan="1" class="title">Ввод текста и настройки позиционирования</mat-grid-tile>
+        <mat-grid-tile colspan="8" rowspan="1" class="title">Ввод текста и настройки позиционирования</mat-grid-tile>
 
-        <mat-grid-tile colspan="4" rowspan="2" class="text-option__input">
+        <mat-grid-tile colspan="5" rowspan="2" class="text-option__input">
           <mat-form-field appearance="fill" class="text-field-wrap">
             <mat-label>Введите текст баннера</mat-label>
             <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
@@ -169,8 +173,9 @@
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="2" class="text-option__input" class="text-option__positioning">
+        <mat-grid-tile colspan="3" rowspan="2" class="text-option__input" class="text-option__positioning">
           <div class="position-option">
+            <h4 class="mat-h4">Вертикальное позиционирование</h4>
             <button mat-stroked-button color="primary" (mousedown)=decreaseStart($event)
               (mouseup)=decreaseStop($event)>Вверх</button>
             <button mat-stroked-button color="primary" (mousedown)=increaseStart($event)
@@ -178,7 +183,22 @@
           </div>
         </mat-grid-tile>
 
-        <mat-grid-tile colspan="1" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
+        <mat-grid-tile colspan="4" rowspan="2">
+          <mat-form-field appearance="fill" class="color-text">
+            <label for="color-text"> Цвет текста </label>
+            <input matInput id="color-text" class="choice-color " [(colorPicker)]="defaultTextColor"
+              [style.background]="defaultTextColor" formControlName="textColor" />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="4" rowspan="2" class="text-width-input">
+          <mat-label for="width-text"> Ширина текста </mat-label>
+          <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
+            [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
+          </mat-slider>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
           <mat-form-field appearance="fill" class="item-option">
             <mat-label>{{item.default}}</mat-label>
             <mat-select formControlName={{item.control}}>
@@ -188,21 +208,6 @@
 
             </mat-select>
           </mat-form-field>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2" rowspan="2">
-          <mat-form-field appearance="fill" class="color-text">
-            <label for="color-text"> Цвет текста </label>
-            <input matInput id="color-text" class="choice-color " [(colorPicker)]="defaultTextColor"
-              [style.background]="defaultTextColor" formControlName="textColor" />
-          </mat-form-field>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2" rowspan="1" class="text-width-input">
-          <mat-label for="width-text"> Ширина текста </mat-label>
-          <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
-            [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
-          </mat-slider>
         </mat-grid-tile>
 
       </mat-grid-list>

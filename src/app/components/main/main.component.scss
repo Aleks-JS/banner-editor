@@ -96,33 +96,33 @@ button {
 }
 
 .size-input {
-    margin-left: 6px;
+    margin-left: 12px;
     width: 70px;
 }
 
 .input-image-position {
     margin-top: 18px;
-    width: 75%;
+    width: 100%;
 }
 
 .choose-bg-color {
     margin-right: 5px;
-    -webkit-transition: 1s;
-    -moz-transition: 1s;
-    -ms-transition: 1s;
-    -o-transition: 1s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
 }
 
 .choose-bg-color-grad {
     transition: .5s;
-    animation: show 1s 1;
+    animation: show .3s 1;
     animation-fill-mode: forwards;
-    animation-delay: 1s;
-    -webkit-animation: show 1s 1;
-    -webkit-transition: .5s;
-    -moz-transition: .5s;
-    -ms-transition: .5s;
-    -o-transition: .5s;
+    animation-delay: .3s;
+    -webkit-animation: show .3s 1;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
 }
 
 @keyframes show {
