@@ -82,17 +82,31 @@ button {
     }
 }
 
-.content-parameter {
-    width: 100%;
-}
-
 .preview__body-content {
     display: block;
     position: relative;
 }
 
-.mat-form-upload {
+.content-parameter {
     width: 100%;
+}
+
+.title {
+    background-color: rgba(182, 182, 197, 0.603);
+}
+
+.mat-form-upload {
+    width: 75%;
+}
+
+.size-input {
+    margin-left: 6px;
+    width: 70px;
+}
+
+.input-image-position {
+    margin-top: 18px;
+    width: 75%;
 }
 
 .choose-bg-color {
@@ -127,18 +141,12 @@ button {
 
 
 
-.choice-color {
-    padding: 3px;
-    max-width: 100%;
-    max-height: 25px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
+.choose-color {
+    width: 50%;
 }
 
 .text-field-wrap {
+    margin-top: 18px;
     width: 70%;
 }
 
@@ -152,6 +160,14 @@ button {
 
 .item-option {
     width: 75%;
+}
+
+.color-text {
+    max-width: 75%;
+}
+
+.text-width-input {
+    margin-top: 20px;
 }
 
 .banner-link {
