@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { from, Subject } from 'rxjs';
+import { from, interval, Subject } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
 import { ClipboardService } from 'ngx-clipboard';
@@ -89,6 +89,9 @@ export class MainComponent implements OnInit {
   maxLinesOfText: number = MAX_NUM_LINE_OF_TEXT;
   textConfigList = textConfigurationList;
   patternUrl: RegExp = /^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
+  topPosition: number = 0;
+  mouseAction: boolean = false;
+  intervalInc: number;
   screenCopy;
 
   /* form group */
@@ -113,27 +116,15 @@ export class MainComponent implements OnInit {
     textColor: [null],
   });
 
+  maxHeight: number =
+    this.parameterForm.get('fontSize').value *
+    this.lineHeightDefault *
+    this.maxLinesOfText;
+
   dynamicStyle = {
     width: `${this.parameterForm.get('width').value}px`,
     height: `${this.parameterForm.get('height').value}px`,
   };
-
-  formatLabel(value: number) {
-    if (value >= 1) {
-      return value + 'd';
-    }
-    return value;
-  }
-
-  formatLabelWidth(value: number = INIT_WIDTH_PREVIEW) {
-    return value + 'px';
-  }
-
-  getErrorMessageLink() {
-    return this.parameterForm.hasError('required', 'link')
-      ? 'Обязательное поле для ввода'
-      : '';
-  }
 
   // formsData$ = this.parameterForm.valueChanges.pipe(
   //   map((v) => {
@@ -143,9 +134,8 @@ export class MainComponent implements OnInit {
   // );
 
   @ViewChild('screen') screen: ElementRef;
-  // @ViewChild('canvas') canvas: ElementRef;
-  // @ViewChild('downloadLink') downloadLink: ElementRef;
   @ViewChild('content') content: ElementRef;
+  @ViewChild('pre') pre: ElementRef;
 
   destroyed$ = new Subject();
 
@@ -160,7 +150,6 @@ export class MainComponent implements OnInit {
     this.imageError = null;
     if (fileInput.target.files && fileInput.target.files[0]) {
       const max_size = 20971520;
-      const allowed_types = ['image/png', 'image/jpeg'];
       const max_height = 500;
       const max_width = 500;
 
@@ -169,11 +158,6 @@ export class MainComponent implements OnInit {
 
         return false;
       }
-
-      // if (!_.includes(allowed_types, fileInput.target.files[0].type)) {
-      //   this.imageError = 'Only Images are allowed ( JPG | PNG )';
-      //   return false;
-      // }
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const image = new Image();
@@ -202,6 +186,62 @@ export class MainComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
+  }
+
+  formatLabel(value: number) {
+    if (value >= 1) {
+      return value + 'd';
+    }
+    return value;
+  }
+
+  formatLabelWidth(value: number = INIT_WIDTH_PREVIEW) {
+    return value + 'px';
+  }
+
+  /* positioning the text on the banner */
+
+  getErrorMessageLink() {
+    return this.parameterForm.hasError('required', 'link')
+      ? 'Обязательное поле для ввода'
+      : '';
+  }
+
+  increaseStart($event) {
+    const maxTopPosition: number = this.parameterForm.get('height').value;
+    this.mouseAction = true;
+    $event.type === 'mousedown' &&
+      this.mouseAction &&
+      ((this.intervalInc = setInterval(
+        () =>
+          this.topPosition < maxTopPosition - this.maxHeight &&
+          this.topPosition++
+      )),
+      100);
+  }
+
+  increaseStop($event) {
+    $event.type === 'mouseup' &&
+      this.mouseAction &&
+      clearInterval(this.intervalInc);
+    this.mouseAction = false;
+  }
+
+  decreaseStart($event) {
+    this.mouseAction = true;
+    $event.type === 'mousedown' &&
+      this.mouseAction &&
+      ((this.intervalInc = setInterval(
+        () => this.topPosition > 0 && this.topPosition--
+      )),
+      100);
+  }
+
+  decreaseStop($event) {
+    $event.type === 'mouseup' &&
+      this.mouseAction &&
+      clearInterval(this.intervalInc);
+    this.mouseAction = false;
   }
 
   /* download to PNG */

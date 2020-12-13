@@ -22,14 +22,15 @@
                   ')'
                 : '',
               backgroundPosition: parameterForm.get('imgPosition').value,
-              backgroundSize: parameterForm.get('imgCover').value
+              backgroundSize: parameterForm.get('imgCover').value,
+              position: 'relative'
             }">
-            <pre [style]="{
+            <pre #pre [style]="{
                   display: 'block',
                   position: 'absolute',
                   width: parameterForm.get('widthText').value + 'px',
                   lineHeight: lineHeightDefault,
-                  maxHeight: parameterForm.get('fontSize').value * lineHeightDefault * maxLinesOfText + 'px',
+                  maxHeight: maxHeight + 'px',
                   whiteSpace: 'pre-wrap',
                   wordWrap: 'break-word',
                   overflow: 'hidden',
@@ -37,8 +38,9 @@
                   fontFamily: parameterForm.get('fontFamily').value,
                   fontSize: parameterForm.get('fontSize').value + 'px',
                   fontWeight: parameterForm.get('fontWeight').value,
-                  color: defaultTextColor
-                }" cdkDragBoundary=".preview__body-content" cdkDrag>{{ parameterForm.get('text').value }}</pre>
+                  color: defaultTextColor,
+                  top: topPosition + 'px'
+                }">{{ parameterForm.get('text').value }}</pre>
             <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank"
               style="display: block; height: 100%;"></a>
           </div>
@@ -66,10 +68,10 @@
     </div>
 
     <div class="parameters _container">
-      <mat-grid-list cols="4" rowHeight="fit" gutterSize="5px" [formGroup]="parameterForm"
+      <mat-grid-list cols="6" rowHeight="fit" gutterSize="5px" [formGroup]="parameterForm"
         class="parameter__content content-parameter">
         <!-- Параметры размера баннера -->
-        <mat-grid-tile colspan="4" rowspan="1" class="title">
+        <mat-grid-tile colspan="6" rowspan="1" class="title">
           Задание размеров макета в пикселях
         </mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="1" class="content-size__item">
@@ -91,7 +93,7 @@
 
         <!-- Параметры изображения баннера -->
 
-        <mat-grid-tile colspan="4" rowspan="1" class="title">Параметры фонового изображения</mat-grid-tile>
+        <mat-grid-tile colspan="6" rowspan="1" class="title">Параметры фонового изображения</mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="2" class="content-parameter__image">
           <mat-form-field class="mat-form-upload">
             <mat-label>Выберите изображение</mat-label>
@@ -124,7 +126,7 @@
         </mat-grid-tile>
 
         <!-- Параметры фонового цвета -->
-        <mat-grid-tile colspan="4" rowspan="1" class="title">Параметры фонового цвета</mat-grid-tile>
+        <mat-grid-tile colspan="6" rowspan="1" class="title">Параметры фонового цвета</mat-grid-tile>
 
         <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="1">
@@ -154,8 +156,7 @@
         </mat-grid-tile>
 
         <!-- Параметры текста -->
-        <mat-grid-tile colspan="4" rowspan="1" class="title">Ввод текста и настройки позиционирования</mat-grid-tile>
-
+        <mat-grid-tile colspan="6" rowspan="1" class="title">Ввод текста и настройки позиционирования</mat-grid-tile>
 
         <mat-grid-tile colspan="4" rowspan="2" class="text-option__input">
           <mat-form-field appearance="fill" class="text-field-wrap">
@@ -168,7 +169,16 @@
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
+        <mat-grid-tile colspan="2" rowspan="2" class="text-option__input" class="text-option__positioning">
+          <div class="position-option">
+            <button mat-stroked-button color="primary" (mousedown)=decreaseStart($event)
+              (mouseup)=decreaseStop($event)>Вверх</button>
+            <button mat-stroked-button color="primary" (mousedown)=increaseStart($event)
+              (mouseup)=increaseStop($event)>Вниз</button>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
           <mat-form-field appearance="fill" class="item-option">
             <mat-label>{{item.default}}</mat-label>
             <mat-select formControlName={{item.control}}>
@@ -187,6 +197,7 @@
               [style.background]="defaultTextColor" formControlName="textColor" />
           </mat-form-field>
         </mat-grid-tile>
+
         <mat-grid-tile colspan="2" rowspan="1" class="text-width-input">
           <mat-label for="width-text"> Ширина текста </mat-label>
           <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
