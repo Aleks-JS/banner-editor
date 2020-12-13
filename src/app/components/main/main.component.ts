@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { from, interval, Subject } from 'rxjs';
-import { map, startWith, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import html2canvas from 'html2canvas';
 import { ClipboardService } from 'ngx-clipboard';
 
@@ -126,13 +125,6 @@ export class MainComponent implements OnInit {
     height: `${this.parameterForm.get('height').value}px`,
   };
 
-  // formsData$ = this.parameterForm.valueChanges.pipe(
-  //   map((v) => {
-  //     return v.width;
-  //   }),
-  //   tap(console.log)
-  // );
-
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('content') content: ElementRef;
   @ViewChild('pre') pre: ElementRef;
@@ -166,8 +158,6 @@ export class MainComponent implements OnInit {
           const img_height = rs.currentTarget['height'];
           const img_width = rs.currentTarget['width'];
 
-          console.log(img_height, img_width);
-
           if (img_height > max_height && img_width > max_width) {
             this.imageError =
               'Максимальные возможные размеры ' +
@@ -175,7 +165,6 @@ export class MainComponent implements OnInit {
               '*' +
               max_width +
               'px';
-            console.log(this.imageError);
             return false;
           } else {
             const imgBase64Path = e.target.result;
