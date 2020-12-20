@@ -1,75 +1,77 @@
 <main class="main">
-  <mat-toolbar color="primary">
-    Banner editor
-  </mat-toolbar>
+  <mat-toolbar color="primary"> Banner editor </mat-toolbar>
   <div class="main__content container">
     <div class="preview _container">
       <div class="body-preview__wrap">
         <div class="preview__body body-preview" #content>
-          <div #screen class="preview__body-content" [style]="{
-              width: parameterForm.get('width').value + 'px',
-              height: parameterForm.get('height').value + 'px',
-              backgroundRepeat: !parameterForm.get('bgGradient').value && 'no-repeat',
-              backgroundImage: !cardImageBase64 ? 'none' : 'url(' + cardImageBase64 + ')',
-              backgroundColor: defaultColor,
-              background: parameterForm.get('bgGradient').value
-                ? 'linear-gradient(' +
-                  parameterForm.get('colorDirection').value +
-                  'deg, ' +
-                  defaultColor +
-                  ', ' +
-                  defaultGradientColor +
-                  ')'
-                : '',
-              backgroundPosition: parameterForm.get('imgPosition').value,
-              backgroundSize: parameterForm.get('imgCover').value,
-              position: 'relative'
-            }">
-            <pre #pre [style]="{
-                  display: 'block',
-                  position: 'absolute',
-                  width: parameterForm.get('widthText').value + 'px',
-                  lineHeight: lineHeightDefault,
-                  maxHeight: maxHeight + 'px',
-                  whiteSpace: 'pre-wrap',
-                  wordWrap: 'break-word',
-                  overflow: 'hidden',
-                  textAlign: parameterForm.get('textAlign').value,
-                  fontFamily: parameterForm.get('fontFamily').value,
-                  fontSize: parameterForm.get('fontSize').value + 'px',
-                  fontWeight: parameterForm.get('fontWeight').value,
-                  color: defaultTextColor,
-                  top: topPosition + 'px'
-                }">{{ parameterForm.get('text').value }}</pre>
-            <a [href]="'http://' + parameterForm.get('link').value" class="banner-link" target="_blank"
-              style="display: block; height: 100%;"></a>
+          <div
+            #screen
+            class="preview__body-content"
+            [ngStyle]="dynamicPreviewStyle"
+          >
+            <pre #pre [ngStyle]="dynamicPreStyle">{{
+              parameterForm.get("text").value
+            }}</pre>
+            <a
+              [href]="'http://' + parameterForm.get('link').value"
+              class="banner-link"
+              target="_blank"
+              style="display: block; height: 100%"
+            ></a>
           </div>
         </div>
       </div>
-      <div class="link-input" [formGroup]="parameterForm">
+      <div
+        class="link-input"
+        [formGroup]="parameterForm"
+        *ngIf="dynamicStyle$ | async"
+      >
         <mat-form-field appearance="fill">
           <mat-label>Введите url без http://</mat-label>
           <input matInput type="text" formControlName="link" required />
-          <mat-error *ngIf="parameterForm.get('link').invalid">{{getErrorMessageLink()}}</mat-error>
+          <mat-error *ngIf="parameterForm.get('link').invalid">{{
+            getErrorMessageLink()
+          }}</mat-error>
         </mat-form-field>
       </div>
       <div class="export">
         <div class="export__buttons" #container>
-
-          <button mat-stroked-button color="accent" (click)="downloadImage()" [disabled]="parameterForm.invalid">в
-            PNG
-            <mat-icon>save_alt</mat-icon></button>
-          <button mat-raised-button color="primary" (click)="copyContent()" [disabled]="parameterForm.invalid">в
-            HTML <mat-icon>file_copy</mat-icon></button>
-          <button mat-raised-button color="link" (click)="copyConfig()" [disabled]="parameterForm.invalid">в JSON
-            <mat-icon>content_copy</mat-icon></button>
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="downloadImage()"
+            [disabled]="parameterForm.invalid"
+          >
+            в PNG <mat-icon>save_alt</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="copyContent()"
+            [disabled]="parameterForm.invalid"
+          >
+            в HTML <mat-icon>file_copy</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            color="link"
+            (click)="copyConfig()"
+            [disabled]="parameterForm.invalid"
+          >
+            в JSON <mat-icon>content_copy</mat-icon>
+          </button>
         </div>
       </div>
     </div>
 
     <div class="parameters _container">
-      <mat-grid-list cols="8" rowHeight="fit" gutterSize="2px" [formGroup]="parameterForm"
-        class="parameter__content content-parameter">
+      <mat-grid-list
+        cols="8"
+        rowHeight="fit"
+        gutterSize="2px"
+        [formGroup]="parameterForm"
+        class="parameter__content content-parameter"
+      >
         <!-- Параметры размера баннера -->
         <mat-grid-tile colspan="8" rowspan="1" class="title">
           Задание размеров макета в пикселях
@@ -79,27 +81,45 @@
             Ширина макета:
           </mat-label>
           <mat-form-field class="size-input">
-            <input matInput type="number" min="100" max="500" formControlName="width" />
+            <input
+              matInput
+              type="number"
+              min="100"
+              max="500"
+              formControlName="width"
+            />
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1">
-        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1"> </mat-grid-tile>
         <mat-grid-tile colspan="3" rowspan="1" class="content-size__item">
           <mat-label class="size-label" for="vertical">
             Высота макета:
           </mat-label>
           <mat-form-field class="size-input">
-            <input matInput id="vertical" type="number" min="100" max="500" formControlName="height" />
+            <input
+              matInput
+              id="vertical"
+              type="number"
+              min="100"
+              max="500"
+              formControlName="height"
+            />
           </mat-form-field>
         </mat-grid-tile>
 
         <!-- Параметры изображения баннера -->
 
-        <mat-grid-tile colspan="8" rowspan="1" class="title">Параметры фонового изображения</mat-grid-tile>
+        <mat-grid-tile colspan="8" rowspan="1" class="title"
+          >Параметры фонового изображения</mat-grid-tile
+        >
         <mat-grid-tile colspan="3" rowspan="1" class="content-parameter__image">
           <mat-form-field class="mat-form-upload">
             <mat-label>Выберите изображение</mat-label>
-            <ngx-mat-file-input id="uploadImage" formControlName="bgImage" (change)="previewFile($event)">
+            <ngx-mat-file-input
+              id="uploadImage"
+              formControlName="bgImage"
+              (change)="previewFile($event)"
+            >
             </ngx-mat-file-input>
             <mat-icon matSuffix>folder</mat-icon>
           </mat-form-field>
@@ -109,14 +129,16 @@
           <mat-form-field appearance="fill" class="input-image-position">
             <mat-label>Расположение</mat-label>
             <mat-select disableRipple formControlName="imgPosition">
-              <mat-option *ngFor="let position of bgPosOptions" [value]="position[1]">
+              <mat-option
+                *ngFor="let position of bgPosOptions"
+                [value]="position[1]"
+              >
                 {{ position[0] }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1">
-        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1"> </mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="1" class="image-position">
           <mat-form-field appearance="fill" class="input-image-position">
             <mat-label>Размер</mat-label>
@@ -130,89 +152,175 @@
         </mat-grid-tile>
 
         <!-- Параметры фонового цвета -->
-        <mat-grid-tile colspan="8" rowspan="1" class="title">Параметры фонового цвета</mat-grid-tile>
+        <mat-grid-tile colspan="8" rowspan="1" class="title"
+          >Параметры фонового цвета</mat-grid-tile
+        >
 
         <mat-grid-tile colspan="2" rowspan="1">
-          <mat-checkbox id="gradient" formControlName="bgGradient">Добавить градиент</mat-checkbox>
+          <mat-checkbox id="gradient" formControlName="bgGradient"
+            >Добавить градиент</mat-checkbox
+          >
         </mat-grid-tile>
         <mat-grid-tile colspan="4" rowspan="1"></mat-grid-tile>
 
-        <mat-grid-tile colspan="1" rowspan="3" class="choose-bg-color-grad"
-          *ngIf="parameterForm.get('bgGradient').value">
+        <mat-grid-tile
+          colspan="1"
+          rowspan="3"
+          class="choose-bg-color-grad"
+          *ngIf="parameterForm.get('bgGradient').value"
+        >
           <label for="direction"> Направление градиента </label>
-          <mat-slider thumbLabel id="direction" formControlName="colorDirection" [displayWith]="formatLabel"
-            vertical="true" min="0" max="360"></mat-slider>
+          <mat-slider
+            thumbLabel
+            id="direction"
+            formControlName="colorDirection"
+            [displayWith]="formatLabel"
+            vertical="true"
+            min="0"
+            max="360"
+          ></mat-slider>
         </mat-grid-tile>
         <mat-grid-tile colspan="5" rowspan="2">
-          <mat-form-field class="choose-bg-color choose-color" appearance="fill">
+          <mat-form-field
+            class="choose-bg-color choose-color"
+            appearance="fill"
+          >
             <label for="colorFrom"> Цвет фона </label>
-            <input matInput id="colorFrom" class="choice-color color-input" [(colorPicker)]="defaultColor"
-              [style.background]="defaultColor" formControlName="bgColorFrom" />
+            <input
+              matInput
+              id="colorFrom"
+              class="choice-color color-input"
+              [(colorPicker)]="defaultColor"
+              [style.background]="defaultColor"
+              (colorPickerChange)="onChangeFirstColor($event)"
+              formControlName="bgColorFrom"
+            />
           </mat-form-field>
 
-          <mat-form-field class="choose-bg-color-grad choose-color" appearance="fill"
-            *ngIf="parameterForm.get('bgGradient').value">
+          <mat-form-field
+            class="choose-bg-color-grad choose-color"
+            appearance="fill"
+            *ngIf="parameterForm.get('bgGradient').value"
+          >
             <label for="colorTo"> Второй цвет фона </label>
-            <input matInput id="colorTo" class="choice-color color-input" [(colorPicker)]="defaultGradientColor"
-              [style.background]="defaultGradientColor" formControlName="bgColorTo" />
+            <input
+              matInput
+              id="colorTo"
+              class="choice-color color-input"
+              [(colorPicker)]="defaultGradientColor"
+              [style.background]="defaultGradientColor"
+              (colorPickerChange)="onChangeSecondColor($event)"
+              formControlName="bgColorTo"
+            />
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
 
         <!-- Параметры текста -->
-        <mat-grid-tile colspan="8" rowspan="1" class="title">Ввод текста и настройки позиционирования</mat-grid-tile>
+        <mat-grid-tile colspan="8" rowspan="1" class="title"
+          >Ввод текста и настройки позиционирования</mat-grid-tile
+        >
 
         <mat-grid-tile colspan="5" rowspan="2" class="text-option__input">
           <mat-form-field appearance="fill" class="text-field-wrap">
             <mat-label>Введите текст баннера</mat-label>
-            <textarea matInput id="text" class="text-field" [placeholder]="textAreaPlaceholder" rows="3"
-              formControlName="text"></textarea>
-            <mat-error *ngIf="parameterForm.hasError('required','text') && parameterForm.controls['text'].touched">
+            <textarea
+              matInput
+              id="text"
+              class="text-field"
+              [placeholder]="textAreaPlaceholder"
+              rows="3"
+              formControlName="text"
+            ></textarea>
+            <mat-error
+              *ngIf="
+                parameterForm.hasError('required', 'text') &&
+                parameterForm.controls['text'].touched
+              "
+            >
               Это поле обязательно для заполнения
             </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile colspan="3" rowspan="2" class="text-option__input" class="text-option__positioning">
+        <mat-grid-tile
+          colspan="3"
+          rowspan="2"
+          class="text-option__input"
+          class="text-option__positioning"
+        >
           <div class="position-option">
             <h4 class="mat-h4">Вертикальное позиционирование</h4>
-            <button mat-stroked-button color="primary" (mousedown)=decreaseStart($event)
-              (mouseup)=decreaseStop($event)>Вверх</button>
-            <button mat-stroked-button color="primary" (mousedown)=increaseStart($event)
-              (mouseup)=increaseStop($event)>Вниз</button>
+            <button
+              mat-stroked-button
+              color="primary"
+              (mousedown)="decreaseStart($event)"
+              (mouseup)="decreaseStop($event)"
+              (mouseleave)="decreaseStop($event)"
+            >
+              Вверх
+            </button>
+            <button
+              mat-stroked-button
+              color="primary"
+              (mousedown)="increaseStart($event)"
+              (mouseup)="increaseStop($event)"
+              (mouseleave)="increaseStop($event)"
+            >
+              Вниз
+            </button>
+            {{ dynamicPreStyle | json }}
           </div>
         </mat-grid-tile>
 
         <mat-grid-tile colspan="4" rowspan="2">
           <mat-form-field appearance="fill" class="color-text">
             <label for="color-text"> Цвет текста </label>
-            <input matInput id="color-text" class="choice-color " [(colorPicker)]="defaultTextColor"
-              [style.background]="defaultTextColor" formControlName="textColor" />
+            <input
+              matInput
+              id="color-text"
+              class="choice-color"
+              [(colorPicker)]="defaultTextColor"
+              [style.background]="defaultTextColor"
+              (colorPickerChange)="onChangeTextColor($event)"
+              formControlName="textColor"
+            />
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile colspan="4" rowspan="2" class="text-width-input">
           <mat-label for="width-text"> Ширина текста </mat-label>
-          <mat-slider #widthTextValue thumbLabel id="width-text" formControlName="widthText"
-            [displayWith]="formatLabelWidth" min="50" [max]="parameterForm.get('width').value">
+          <mat-slider
+            #widthTextValue
+            thumbLabel
+            id="width-text"
+            formControlName="widthText"
+            [displayWith]="formatLabelWidth"
+            min="50"
+            [max]="parameterForm.get('width').value"
+          >
           </mat-slider>
         </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="1" class="setting-option__items" *ngFor="let item of textConfigList">
+        <mat-grid-tile
+          colspan="2"
+          rowspan="1"
+          class="setting-option__items"
+          *ngFor="let item of textConfigList"
+        >
           <mat-form-field appearance="fill" class="item-option">
-            <mat-label>{{item.default}}</mat-label>
-            <mat-select formControlName={{item.control}}>
-              <mat-option *ngFor="let value of item.selectValue; let i = index" [value]="item.styleValue[i]">
-                {{value}}
+            <mat-label>{{ item.default }}</mat-label>
+            <mat-select formControlName="{{ item.control }}">
+              <mat-option
+                *ngFor="let value of item.selectValue; let i = index"
+                [value]="item.styleValue[i]"
+              >
+                {{ value }}
               </mat-option>
-
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
-
       </mat-grid-list>
     </div>
-
   </div>
-
 </main>

@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
+import { startWith, tap, map } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
 import { ClipboardService } from 'ngx-clipboard';
+import { ColorPickerService } from 'ngx-color-picker';
 
 /* string variables */
 const INIT_WIDTH_PREVIEW: number = 282;
@@ -115,28 +117,94 @@ export class MainComponent implements OnInit {
     textColor: [null],
   });
 
+  dynamicStyle$;
+
   maxHeight: number =
     this.parameterForm.get('fontSize').value *
     this.lineHeightDefault *
     this.maxLinesOfText;
 
-  dynamicStyle = {
-    width: `${this.parameterForm.get('width').value}px`,
-    height: `${this.parameterForm.get('height').value}px`,
-  };
-
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('content') content: ElementRef;
   @ViewChild('pre') pre: ElementRef;
 
-  destroyed$ = new Subject();
+  dynamicPreviewStyle = {
+    width: '',
+    height: '',
+    backgroundColor: '',
+    background: '',
+    backgroundImage: '',
+    backgroundPosition: '',
+    backgroundSize: '',
+    position: 'relative',
+    backgroundRepeat: '',
+  };
+
+  dynamicPreStyle = {
+    display: 'block',
+    position: 'absolute',
+    width: '',
+    lineHeight: this.lineHeightDefault,
+    maxHeight: `${this.maxHeight}px`,
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    overflow: 'hidden',
+    textAlign: '',
+    fontFamily: '',
+    fontSize: '',
+    fontWeight: '',
+    color: this.defaultTextColor,
+    top: `${this.topPosition}px`,
+  };
 
   constructor(
     private fb: FormBuilder,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    private cp: ColorPickerService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dynamicStyle$ = this.parameterForm.valueChanges.pipe(
+      startWith(this.parameterForm.value),
+      map((val) => {
+        this.dynamicPreviewStyle.width = `${val.width}px`;
+        this.dynamicPreviewStyle.height = `${val.height}px`;
+        this.dynamicPreviewStyle.backgroundColor = val.bgColorFrom;
+        this.dynamicPreviewStyle.background = !val.bgGradient
+          ? ''
+          : `linear-gradient(${val.colorDirection}deg, ${val.bgColorFrom}, ${val.bgColorTo})`;
+        this.dynamicPreviewStyle.backgroundImage = !val.bgImage
+          ? 'none'
+          : `url(${val.bgImage})`;
+        this.dynamicPreviewStyle.backgroundPosition = val.imgPosition;
+        this.dynamicPreviewStyle.backgroundSize = val.imgCover;
+        this.dynamicPreviewStyle.backgroundRepeat =
+          !val.bgGradient && 'no-repeat';
+        this.dynamicPreStyle.width = `${val.widthText}px`;
+        this.dynamicPreStyle.textAlign = val.textAlign;
+        this.dynamicPreStyle.fontFamily = val.fontFamily;
+        this.dynamicPreStyle.fontSize = `${val.fontSize}px`;
+        this.dynamicPreStyle.fontWeight = val.fontWeight;
+        this.dynamicPreStyle.color = val.textColor;
+
+        return this.dynamicPreviewStyle;
+      })
+    );
+    console.log(this.dynamicPreviewStyle);
+  }
+
+  onChangeFirstColor(color) {
+    this.parameterForm.patchValue({ bgColorFrom: color });
+  }
+
+  onChangeSecondColor(color) {
+    this.parameterForm.patchValue({ bgColorTo: color });
+  }
+
+  onChangeTextColor(color) {
+    this.parameterForm.patchValue({ textColor: color });
+    console.log(color);
+  }
 
   previewFile(fileInput: any) {
     this.imageError = null;
@@ -170,6 +238,7 @@ export class MainComponent implements OnInit {
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;
+            this.parameterForm.patchValue({ bgImage: this.cardImageBase64 });
           }
         };
       };
@@ -201,16 +270,17 @@ export class MainComponent implements OnInit {
     this.mouseAction = true;
     $event.type === 'mousedown' &&
       this.mouseAction &&
-      ((this.intervalInc = setInterval(
-        () =>
-          this.topPosition < maxTopPosition - this.maxHeight &&
-          this.topPosition++
-      )),
-      100);
+      ((this.intervalInc = setInterval(() => {
+        if (this.topPosition < maxTopPosition - this.maxHeight) {
+          this.topPosition++;
+          this.dynamicPreStyle.top = this.topPosition + 'px';
+        }
+      })),
+      500);
   }
 
   increaseStop($event) {
-    $event.type === 'mouseup' &&
+    ($event.type === 'mouseleave' || $event.type === 'mouseup') &&
       this.mouseAction &&
       clearInterval(this.intervalInc);
     this.mouseAction = false;
@@ -220,14 +290,18 @@ export class MainComponent implements OnInit {
     this.mouseAction = true;
     $event.type === 'mousedown' &&
       this.mouseAction &&
-      ((this.intervalInc = setInterval(
-        () => this.topPosition > 0 && this.topPosition--
-      )),
-      100);
+      ((this.intervalInc = setInterval(() => {
+        if (this.topPosition > 0) {
+          this.topPosition--;
+          console.log(this.topPosition);
+          this.dynamicPreStyle.top = this.topPosition + 'px';
+        }
+      })),
+      500);
   }
 
   decreaseStop($event) {
-    $event.type === 'mouseup' &&
+    ($event.type === 'mouseleave' || $event.type === 'mouseup') &&
       this.mouseAction &&
       clearInterval(this.intervalInc);
     this.mouseAction = false;
