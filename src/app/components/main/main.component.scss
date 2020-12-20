@@ -60,24 +60,6 @@ button {
 
 
 
-.export__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px 0;
-
-    >button {
-        margin-bottom: 5px;
-    }
-
-    >:nth-child(1) {
-        margin-right: 5px;
-    }
-
-    >:nth-child(2) {
-        margin-right: 5px;
-    }
-}
-
 .preview__body-content {
     display: block;
     position: relative;
@@ -134,7 +116,7 @@ button {
     0% {
         opacity: 0;
     }
-
+    
     100% {
         opacity: 1;
     }
@@ -186,4 +168,21 @@ button {
     display: flex;
     justify-content: center;
     padding: 10px;
+}
+.export__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0;
+
+    >button {
+        margin-bottom: 5px;
+    }
+
+    >:nth-child(1) {
+        margin-right: 5px;
+    }
+
+    >:nth-child(2) {
+        margin-right: 5px;
+    }
 }

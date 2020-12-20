@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
-import { startWith, tap, map } from 'rxjs/operators';
+import { startWith, map } from 'rxjs/operators';
 import html2canvas from 'html2canvas';
 import { ClipboardService } from 'ngx-clipboard';
-import { ColorPickerService } from 'ngx-color-picker';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 /* string variables */
 const INIT_WIDTH_PREVIEW: number = 282;
@@ -40,12 +39,6 @@ const backgroundSizes: string[][] = [
 
 const textConfigurationList = [
   {
-    default: 'Положение текста',
-    control: 'textAlign',
-    selectValue: ['По левой стороне', 'По центру', 'По правой стороне'],
-    styleValue: ['left', 'center', 'right'],
-  },
-  {
     default: 'Шрифт',
     control: 'fontFamily',
     selectValue: ['Roboto', 'Arial', 'Times New Roman'],
@@ -62,6 +55,24 @@ const textConfigurationList = [
     control: 'fontWeight',
     selectValue: ['Нормальный', 'Жирный'],
     styleValue: ['normal', 'bold'],
+  },
+];
+
+const textLayoutArr = [
+  {
+    value: 'left',
+    displayValue: 'По левой стороне',
+    icon: 'format_align_left',
+  },
+  {
+    value: 'center',
+    displayValue: 'По центру',
+    icon: 'format_align_center',
+  },
+  {
+    value: 'right',
+    displayValue: 'По правой стороне',
+    icon: 'format_align_right',
   },
 ];
 
@@ -93,6 +104,7 @@ export class MainComponent implements OnInit {
   topPosition: number = 0;
   mouseAction: boolean = false;
   intervalInc: number;
+  textLayout = textLayoutArr;
   screenCopy;
 
   /* form group */
@@ -110,9 +122,9 @@ export class MainComponent implements OnInit {
     text: [null, Validators.required],
     link: ['', Validators.required],
     textAlign: [this.textConfigList[0].styleValue[0]],
-    fontFamily: [this.textConfigList[1].styleValue[0]],
-    fontSize: [this.textConfigList[2].styleValue[0]],
-    fontWeight: [this.textConfigList[3].styleValue[0]],
+    fontFamily: [this.textConfigList[0].styleValue[0]],
+    fontSize: [this.textConfigList[1].styleValue[0]],
+    fontWeight: [this.textConfigList[2].styleValue[0]],
     widthText: [INIT_WIDTH_PREVIEW],
     textColor: [null],
   });
@@ -133,11 +145,7 @@ export class MainComponent implements OnInit {
     height: '',
     backgroundColor: '',
     background: '',
-    backgroundImage: '',
-    backgroundPosition: '',
-    backgroundSize: '',
     position: 'relative',
-    backgroundRepeat: '',
   };
 
   dynamicPreStyle = {
@@ -157,10 +165,19 @@ export class MainComponent implements OnInit {
     top: `${this.topPosition}px`,
   };
 
+  dynamicBgImage = {
+    width: '100%',
+    height: '100%',
+    zIndex: 99,
+    backgroundImage: '',
+    backgroundPosition: '',
+    backgroundSize: '',
+    backgroundRepeat: 'no-repeat',
+  };
+
   constructor(
     private fb: FormBuilder,
-    private clipboardService: ClipboardService,
-    private cp: ColorPickerService
+    private clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -171,15 +188,13 @@ export class MainComponent implements OnInit {
         this.dynamicPreviewStyle.height = `${val.height}px`;
         this.dynamicPreviewStyle.backgroundColor = val.bgColorFrom;
         this.dynamicPreviewStyle.background = !val.bgGradient
-          ? ''
+          ? val.bgColorFrom
           : `linear-gradient(${val.colorDirection}deg, ${val.bgColorFrom}, ${val.bgColorTo})`;
-        this.dynamicPreviewStyle.backgroundImage = !val.bgImage
+        this.dynamicBgImage.backgroundImage = !val.bgImage
           ? 'none'
           : `url(${val.bgImage})`;
-        this.dynamicPreviewStyle.backgroundPosition = val.imgPosition;
-        this.dynamicPreviewStyle.backgroundSize = val.imgCover;
-        this.dynamicPreviewStyle.backgroundRepeat =
-          !val.bgGradient && 'no-repeat';
+        this.dynamicBgImage.backgroundPosition = val.imgPosition;
+        this.dynamicBgImage.backgroundSize = val.imgCover;
         this.dynamicPreStyle.width = `${val.widthText}px`;
         this.dynamicPreStyle.textAlign = val.textAlign;
         this.dynamicPreStyle.fontFamily = val.fontFamily;
@@ -190,7 +205,6 @@ export class MainComponent implements OnInit {
         return this.dynamicPreviewStyle;
       })
     );
-    console.log(this.dynamicPreviewStyle);
   }
 
   onChangeFirstColor(color) {
@@ -203,7 +217,10 @@ export class MainComponent implements OnInit {
 
   onChangeTextColor(color) {
     this.parameterForm.patchValue({ textColor: color });
-    console.log(color);
+  }
+
+  textLayoutChange(event: MatButtonToggleChange) {
+    this.dynamicPreStyle.textAlign = event.value;
   }
 
   previewFile(fileInput: any) {
@@ -293,7 +310,6 @@ export class MainComponent implements OnInit {
       ((this.intervalInc = setInterval(() => {
         if (this.topPosition > 0) {
           this.topPosition--;
-          console.log(this.topPosition);
           this.dynamicPreStyle.top = this.topPosition + 'px';
         }
       })),

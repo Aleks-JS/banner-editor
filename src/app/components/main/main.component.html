@@ -9,15 +9,17 @@
             class="preview__body-content"
             [ngStyle]="dynamicPreviewStyle"
           >
-            <pre #pre [ngStyle]="dynamicPreStyle">{{
-              parameterForm.get("text").value
-            }}</pre>
-            <a
-              [href]="'http://' + parameterForm.get('link').value"
-              class="banner-link"
-              target="_blank"
-              style="display: block; height: 100%"
-            ></a>
+            <div class="body-content-bgimage" [ngStyle]="dynamicBgImage">
+              <pre #pre [ngStyle]="dynamicPreStyle">{{
+                parameterForm.get("text").value
+              }}</pre>
+              <a
+                [href]="'http://' + parameterForm.get('link').value"
+                class="banner-link"
+                target="_blank"
+                style="display: block; height: 100%"
+              ></a>
+            </div>
           </div>
         </div>
       </div>
@@ -269,7 +271,6 @@
             >
               Вниз
             </button>
-            {{ dynamicPreStyle | json }}
           </div>
         </mat-grid-tile>
 
@@ -319,6 +320,19 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-button-toggle-group
+            value="left"
+            (change)="textLayoutChange($event)"
+          >
+            <mat-button-toggle
+              *ngFor="let item of textLayout"
+              [value]="item.value"
+            >
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
