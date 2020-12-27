@@ -2,6 +2,9 @@
 
 Данный проект выполняется на основании тестового задания [для стажёра в команду VAS](https://github.com/avito-tech/vas-frontend-trainee-assignment/blob/main/README.md)
 
+<img src="./src/assets/screen-banner.png" width="100%">
+<h2 align="center"><a  href="https://aleks-js.github.io/banner-editor/">Live Demo</a></h2>
+
 ## Загрузка и запуск приложения
 
 ### Загрузка приложения из данного репозитория
@@ -17,8 +20,6 @@
 `npm start`
 
 Приложение будет доступно по ссылке `http://localhost:3999/`.
-
-Развернутое приложение на [github-pages](https://aleks-js.github.io/banner-editor/)
 
 ## Задачи и их реализация
 
